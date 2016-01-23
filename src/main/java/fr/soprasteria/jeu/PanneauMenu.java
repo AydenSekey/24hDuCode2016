@@ -88,7 +88,7 @@ public class PanneauMenu extends JPanel {
 	
 	public void actionNouvellePartie()
 	{
-		
+		FenetreJeu.getInstance().changerPanneau(PanneauSelectionNiveau.getInstance());
 	}
 	
 	public void actionEditeur()

@@ -53,4 +53,10 @@ public class FenetreJeu extends JFrame{
 		this.setContentPane(PanneauEditeur.getInstance());
 		this.validate();
 	}
+	
+	public void changerPanneau(JPanel panneau)
+	{
+		this.setContentPane(panneau);
+		this.validate();
+	}
 }

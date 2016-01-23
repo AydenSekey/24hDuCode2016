@@ -55,7 +55,7 @@ public class PanneauEditeur extends JPanel{
 	/**
 	 * Static getter method for retrieving the singleton instance
 	 */
-	public static PanneauEditeur getInstance() {
+	public static synchronized PanneauEditeur getInstance() {
 		if (instance == null) {
 			instance = new PanneauEditeur();
 		}
