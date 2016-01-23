@@ -60,17 +60,7 @@ public final class FabriqueSimpleWorlds {
 		int nbLis = 5;
 		int colCible = 1;
 		int liCible = 2;
-		WorldGrille world = new WorldGrille(nbCols, nbLis);
-		CaseVide caseVide = new CaseVide();
-		for(int col = 0; col < nbCols; col++) {
-			for(int li = 0; li < nbLis; li++) {
-				if(li == liCible && col == colCible) {
-					world.setCase(col, li, new Cible());
-				} else {
-					world.setCase(col, li, caseVide);
-				}
-			}
-		}
+		WorldGrille world = emptyWorld(nbCols, nbLis, colCible, liCible);
 		
 		world.setCase(2, 0, new Obstacle());
 		world.setCase(2, 1, new Obstacle());
