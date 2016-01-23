@@ -31,13 +31,43 @@ public final class FabriqueSimpleWorlds {
 			}
 		}
 		
+		return world;
+	}
+	
+	/**
+	 * Crée un monde entièrement vide.
+	 * @param nbCols le nombre de colonnes de la grille du monde
+	 * @param nbLis le nombre de lignes de la grille du monde
+	 * @return le monde correspondant.
+	 */
+	public static WorldGrille emptyWorld(int nbCols, int nbLis) {
+		WorldGrille world = new WorldGrille(nbCols, nbLis);
+		CaseVide caseVide = new CaseVide();
+		for(int col = 0; col < nbCols; col++) {
+			for(int li = 0; li < nbLis; li++) {
+					world.setCase(col, li, caseVide);
+			}
+		}
+		return world;
+	}
+	
+	/**
+	 * Crée un monde contenant une cible avec 4 obstacles.
+	 * @return le monde correspondant.
+	 */
+	public static WorldGrille withObstacleWorldExemple1() {
+		int nbCols = 10;
+		int nbLis = 5;
+		int colCible = 1;
+		int liCible = 2;
+		WorldGrille world = emptyWorld(nbCols, nbLis, colCible, liCible);
+		
 		world.setCase(3, 0, new Obstacle());
 		world.setCase(3, 1, new Obstacle());
 		world.setCase(3, 2, new Obstacle());
 		world.setCase(4, 2, new Obstacle());
 		world.setCase(5, 2, new Obstacle());
 		world.setCase(6, 2, new Obstacle());
-		
 		
 		return world;
 	}
