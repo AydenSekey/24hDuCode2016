@@ -21,6 +21,7 @@ import javax.swing.SwingUtilities;
 
 import fr.soprasteria.jeu.view.CaseViewFactory;
 import fr.soprasteria.world.WorldGrille;
+import fr.soprasteria.world.fabriques.FabriqueSimpleWorlds;
 
 public class PanneauJeu extends JPanel{
 	
@@ -35,7 +36,7 @@ public class PanneauJeu extends JPanel{
 	}
 
 	public PanneauJeu() {
-		
+		this.grille = FabriqueSimpleWorlds.emptyWorld(10, 5);
 	}
 
 	private void constuire()
