@@ -19,6 +19,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
+import fr.soprasteria.world.WorldGrille;
+
 public class PanneauJeuGaming extends PanneauJeu{
 
 	/**
@@ -29,6 +31,10 @@ public class PanneauJeuGaming extends PanneauJeu{
 		super();
 	}
 	
+	public PanneauJeuGaming(WorldGrille withObstacleWorldExemple1) {
+		super(withObstacleWorldExemple1);
+	}
+
 	public void dessinerLaser(JComponent element1, JComponent element2)
 	{
 		Graphics g = this.getGraphics();

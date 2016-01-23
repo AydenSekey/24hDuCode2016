@@ -58,8 +58,8 @@ public final class FabriqueSimpleWorlds {
 	public static WorldGrille withObstacleWorldExemple1() {
 		int nbCols = 10;
 		int nbLis = 5;
-		int colCible = 1;
-		int liCible = 2;
+		int colCible = 5;
+		int liCible = 0;
 		WorldGrille world = emptyWorld(nbCols, nbLis, colCible, liCible);
 		
 		world.setCase(3, 0, new Obstacle());
