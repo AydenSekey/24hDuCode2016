@@ -19,7 +19,6 @@ import javax.swing.JSplitPane;
 import fr.soprasteria.jeu.FenetreJeu;
 import fr.soprasteria.view.ImagesCases;
 import fr.soprasteria.world.WorldGrille;
-import fr.soprasteria.world.fabriques.FabriqueSimpleWorlds;
 
 public class Editeur extends JPanel implements ActionListener{
 	
