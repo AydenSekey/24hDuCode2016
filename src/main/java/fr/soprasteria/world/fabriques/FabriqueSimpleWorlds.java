@@ -3,6 +3,7 @@ package fr.soprasteria.world.fabriques;
 import fr.soprasteria.world.WorldGrille;
 import fr.soprasteria.world.cases.CaseVide;
 import fr.soprasteria.world.cases.Cible;
+import fr.soprasteria.world.cases.Obstacle;
 
 public final class FabriqueSimpleWorlds {
 	private FabriqueSimpleWorlds() {
@@ -29,6 +30,13 @@ public final class FabriqueSimpleWorlds {
 				}
 			}
 		}
+		
+		world.setCase(2, 0, new Obstacle());
+		world.setCase(2, 1, new Obstacle());
+		world.setCase(2, 2, new Obstacle());
+		world.setCase(3, 2, new Obstacle());
+		
+		
 		return world;
 	}
 }
