@@ -3,6 +3,7 @@ package fr.soprasteria.jeu;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
@@ -31,24 +32,24 @@ public class PanneauJeu extends JPanel{
 
 	public PanneauJeu(WorldGrille grille) {
 		this.grille = grille;
-		constuire();
+		construire();
 	}
 
 	public PanneauJeu() {
 		
 	}
 
-	private void constuire()
+	private void construire()
 	{
 		int x = this.grille.getNbColonnes();
 		int y = this.grille.getNbLignes();
 		
 		this.setLayout(new GridLayout(x,y));
 		structureCase = new JComponent[x][y];
+		
 		for (int i = 0; i < x; i++) {
 			for (int j = 0; j < y; j++) {
 				JComponent b = CaseViewFactory.getCasePourModele(grille.getCase(i,j));
-				
 				structureCase[i][j] = b;
 			}
 		}
@@ -60,9 +61,9 @@ public class PanneauJeu extends JPanel{
 		}
 	}
 	
-	protected JComponent getGridButton(int r, int c) {
+	protected JComponent getGridButton(int col, int lig) {
 //        int index = r * 8 + c;
-        return this.structureCase[r][c];
+        return this.structureCase[col][lig];
     }
 	
 }

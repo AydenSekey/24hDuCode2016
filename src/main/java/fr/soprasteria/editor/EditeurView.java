@@ -3,7 +3,6 @@ package fr.soprasteria.editor;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -17,10 +16,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 
 import fr.soprasteria.jeu.FenetreJeu;
-import fr.soprasteria.jeu.PanneauJeu;
 import fr.soprasteria.jeu.PanneauJeuEditor;
 import fr.soprasteria.view.ImagesCases;
 import fr.soprasteria.world.WorldGrille;
+import fr.soprasteria.world.fabriques.FabriqueSimpleWorlds;
 
 public class EditeurView extends JPanel implements ActionListener{
 	
@@ -28,6 +27,7 @@ public class EditeurView extends JPanel implements ActionListener{
 	 * static Singleton instance
 	 */
 	private static EditeurView instance;
+	private WorldGrille grille;
 	private JSplitPane splitPane;
 	private JPanel panelWorld;
 	private JPanel toolBox;
@@ -41,7 +41,10 @@ public class EditeurView extends JPanel implements ActionListener{
 	 */
 	private EditeurView(){
 		
-		panelWorld = new PanneauJeuEditor();
+		grille = FabriqueSimpleWorlds.emptyWorld(20, 10, 0, 0);
+		
+		panelWorld = new PanneauJeuEditor(grille);
+				
 		toolBox=genererToolBox();		
 		toolBox.setMinimumSize(new Dimension(150,FenetreJeu.getInstance().getHeight()));
 		toolBox.setMaximumSize(new Dimension(150,FenetreJeu.getInstance().getHeight()));

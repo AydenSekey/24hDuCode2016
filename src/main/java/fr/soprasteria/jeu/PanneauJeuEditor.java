@@ -12,12 +12,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+import javax.swing.border.Border;
+
+import fr.soprasteria.world.WorldGrille;
 
 public class PanneauJeuEditor extends PanneauJeu{
 
@@ -25,11 +29,19 @@ public class PanneauJeuEditor extends PanneauJeu{
 	 * Private constructor for singleton
 	 * @return 
 	 */
-	public PanneauJeuEditor() {
-		super();
+	public PanneauJeuEditor(WorldGrille grille) {
+		super(grille);
+		setBackground(Color.WHITE);
+		Object blackline = BorderFactory.createLineBorder(Color.black);
+		for(int i=0;i<grille.getNbColonnes();i++){
+			for(int j=0;j<grille.getNbLignes();j++){
+				getGridButton(i, j).setBorder((Border) blackline);
+			}
+		}
+		
 	}
 
-	public JPanel lancerEditor() {
+	/*public JPanel lancerEditor() {
 		// TODO Auto-generated method stub
 		JComponent c = this.getGridButton(2,3);
 		
@@ -48,6 +60,6 @@ public class PanneauJeuEditor extends PanneauJeu{
 		this.add(boutonStat);
 		
 		return this;
-	}
+	}*/
 	
 }
