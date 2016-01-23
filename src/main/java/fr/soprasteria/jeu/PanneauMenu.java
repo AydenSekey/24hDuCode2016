@@ -98,7 +98,7 @@ public class PanneauMenu extends JPanel {
 	
 	public void actionStat()
 	{
-		
+		FenetreJeu.getInstance().changerPanneau(PanneauJeu.getInstance());
 	}
 	
 	public void actionOption()
