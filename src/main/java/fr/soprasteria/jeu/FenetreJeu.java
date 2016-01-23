@@ -39,30 +39,18 @@ public class FenetreJeu extends JFrame{
 		this.setSize(1000,500);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		//menu
-		this.menuBar = new JMenuBar();
-		JMenu menu1 = new JMenu("Menu");
-		this.menuBar.add(menu1);
-		JMenuItem itemEditeur = new JMenuItem("Editeur");
-		itemEditeur.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				FenetreJeu.getInstance().chargerEditeur();
-				
-			}
-		});
-		menu1.add(itemEditeur);
-		this.setJMenuBar(this.menuBar);
+		this.setContentPane(PanneauAccueil.getInstance());
 	}
 	
 	public void start()
 	{
+		//this.pack();
 		this.setVisible(true);
 	}
 
 	public void chargerEditeur()
 	{
 		this.setContentPane(PanneauEditeur.getInstance());
+		this.validate();
 	}
 }
