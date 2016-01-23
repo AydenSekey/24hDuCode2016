@@ -1,5 +1,8 @@
 package fr.soprasteria.world.fabriques;
 
+import java.awt.Color;
+
+import fr.soprasteria.world.Personnage;
 import fr.soprasteria.world.WorldGrille;
 import fr.soprasteria.world.cases.CaseVide;
 import fr.soprasteria.world.cases.Cible;
@@ -68,6 +71,9 @@ public final class FabriqueSimpleWorlds {
 		world.setCase(4, 2, new Obstacle());
 		world.setCase(5, 2, new Obstacle());
 		world.setCase(6, 2, new Obstacle());
+		
+		world.addPersonnage(new Personnage(0, 4, Color.red));
+		
 		
 		return world;
 	}
