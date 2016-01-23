@@ -11,7 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import fr.soprasteria.editor.Editeur;
+import fr.soprasteria.editor.EditeurView;
 import fr.soprasteria.world.WorldGrille;
 
 public class PanneauEditeur extends JPanel implements ActionListener{
@@ -21,7 +21,7 @@ public class PanneauEditeur extends JPanel implements ActionListener{
 	 */
 	private static PanneauEditeur instance;
 	
-	/*liste de niveaux crées*/
+	/*liste de niveaux crï¿½es*/
 	private List<String> list_world;
 
 	private JPanel panelTitre;
@@ -42,7 +42,7 @@ public class PanneauEditeur extends JPanel implements ActionListener{
 			
 			JButton Bu = new JButton(world);
 			Bu.addActionListener(this);
-			panelNiveau.add(Bu);			
+			panelNiveau.add(Bu);
 			//panelNiveau.add(new JLabel(world));
 		}
 		
@@ -72,7 +72,7 @@ public class PanneauEditeur extends JPanel implements ActionListener{
 		list_world = new ArrayList<String>();
 		
 		list_world.add("TEST 1");
-		list_world.add("TEST 2");		
+		list_world.add("TEST 2");
 		
 		return list_world;
 		
@@ -82,7 +82,7 @@ public class PanneauEditeur extends JPanel implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if( e.getSource() == newNiveau ){
-			FenetreJeu.getInstance().changerPanneau(Editeur.getInstance());
+			FenetreJeu.getInstance().changerPanneau(EditeurView.getInstance());
 		}
 	}
 }

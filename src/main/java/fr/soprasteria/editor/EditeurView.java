@@ -17,54 +17,66 @@ import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 
 import fr.soprasteria.jeu.FenetreJeu;
+import fr.soprasteria.jeu.PanneauJeu;
+import fr.soprasteria.jeu.PanneauJeuEditor;
 import fr.soprasteria.view.ImagesCases;
 import fr.soprasteria.world.WorldGrille;
 
-public class Editeur extends JPanel implements ActionListener{
+public class EditeurView extends JPanel implements ActionListener{
 	
 	/**
 	 * static Singleton instance
 	 */
-	private static Editeur instance;
-	private WorldGrille newWorld;	
+	private static EditeurView instance;
 	private JSplitPane splitPane;
 	private JPanel panelWorld;
 	private JPanel toolBox;
-	private JScrollPane scrollpane;
+	private JScrollPane scrollpane1;
+	private JScrollPane scrollpane2;
 	private JButton selectButton;
+	private EditeurController editeurController;
 	
 	/**
 	 * Private constructor for singleton
 	 */
-	public Editeur(){
-				
-		panelWorld = new JPanel();
-		toolBox=genererToolBox();
+	private EditeurView(){
 		
+		panelWorld = new PanneauJeuEditor();
+		toolBox=genererToolBox();		
 		toolBox.setMinimumSize(new Dimension(150,FenetreJeu.getInstance().getHeight()));
+		toolBox.setMaximumSize(new Dimension(150,FenetreJeu.getInstance().getHeight()));
+		panelWorld.setMinimumSize(new Dimension(FenetreJeu.getInstance().getWidth(),FenetreJeu.getInstance().getHeight()));
 		
-		scrollpane = new JScrollPane(toolBox);
+		scrollpane1 = new JScrollPane(toolBox);
+		scrollpane2 = new JScrollPane(panelWorld);
 		
-		splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,scrollpane, panelWorld);
+		scrollpane1.setMinimumSize(new Dimension(150,FenetreJeu.getInstance().getHeight()));
+		scrollpane1.setMaximumSize(new Dimension(150,FenetreJeu.getInstance().getHeight()));
+		scrollpane2.setMinimumSize(new Dimension(FenetreJeu.getInstance().getWidth(),FenetreJeu.getInstance().getHeight()));
+		//scrollpane2.setMaximumSize(new Dimension(150,FenetreJeu.getInstance().getHeight()));
+
+		splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,scrollpane1, panelWorld);
 		splitPane.setOneTouchExpandable(true);
 		splitPane.setDividerLocation(150);
 		splitPane.setMinimumSize(new Dimension(FenetreJeu.getInstance().getWidth(), FenetreJeu.getInstance().getHeight()));
 		splitPane.setContinuousLayout(true);
 		
-		setMinimumSize(new Dimension(FenetreJeu.getInstance().getWidth(), FenetreJeu.getInstance().getHeight()));		
+		//setMinimumSize(new Dimension(FenetreJeu.getInstance().getWidth(), FenetreJeu.getInstance().getHeight()));		
 		setLayout(new BorderLayout());
 		
 		add(splitPane,BorderLayout.CENTER);
 		
 		setVisible(true);
+		
+		editeurController = new EditeurController();
 	}
 	
 	/**
 	 * Static getter method for retrieving the singleton instance
 	 */
-	public static synchronized Editeur getInstance() {
+	public static synchronized EditeurView getInstance() {
 		if (instance == null) {
-			instance = new Editeur();
+			instance = new EditeurView();
 		}
 		return instance;
 	}
@@ -124,10 +136,11 @@ public class Editeur extends JPanel implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		
+		((Component) e.getSource()).setEnabled(false);
 		selectButton.setEnabled(true);
-		this.setSelectionBouton((JButton)e.getSource());
-		selectButton.setEnabled(false);
 		
-		
+		this.setSelectionBouton((JButton)e.getSource());		
 	}
+	
+	
 }
