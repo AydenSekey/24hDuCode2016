@@ -1,5 +1,9 @@
 package fr.soprasteria.jeu;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import javax.swing.JFrame;
 
 public class Jeu{
@@ -42,6 +46,18 @@ public class Jeu{
 	public String getNom()
 	{
 		return _NOM;
+	}
+	
+	public ArrayList<String> listerNiveaux()
+	{
+		File rep = new File("doc/levels");
+		ArrayList<String> niveaux = new ArrayList<>();
+		for(String niv: rep.list())
+		{
+			niveaux.add(niv.replace(".lvl", ""));
+		}
+		
+		return niveaux;
 	}
 
 }
