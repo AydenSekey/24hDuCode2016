@@ -1,5 +1,6 @@
 package fr.soprasteria.jeu;
 
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -37,6 +38,7 @@ public class FenetreJeu extends JFrame{
 	private void init()
 	{
 		this.setSize(1000,500);
+		this.setMinimumSize(new Dimension(1000, 500));
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		this.setContentPane(PanneauAccueil.getInstance());

@@ -33,20 +33,16 @@ public class PanneauEditeur extends JPanel implements ActionListener{
 	 */
 	private PanneauEditeur() {
 			
-		panelTitre = new JPanel();
-						
-		panelNiveau = new JPanel();
-		
-		list_world = getListWorld();
-		
+		panelTitre = new JPanel();						
+		panelNiveau = new JPanel();		
+		list_world = getListWorld();		
 		panelNiveau.setLayout(new FlowLayout(list_world.size()));		
 		
 		for (String world:list_world){
 			
 			JButton Bu = new JButton(world);
 			Bu.addActionListener(this);
-			panelNiveau.add(Bu);
-			
+			panelNiveau.add(Bu);			
 			//panelNiveau.add(new JLabel(world));
 		}
 		
