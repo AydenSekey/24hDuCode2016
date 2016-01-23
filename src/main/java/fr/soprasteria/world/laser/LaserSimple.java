@@ -45,6 +45,9 @@ public class LaserSimple implements Laser {
 	 * @param laserSource the laserSource to set
 	 */
 	public void setLaserSource(Laser laserSource) {
+		if(laserSource == this) {
+			throw new IllegalArgumentException("Un laser ne doit pas être source de lui-même.");
+		}
 		this.laserSource = laserSource;
 	}
 }
