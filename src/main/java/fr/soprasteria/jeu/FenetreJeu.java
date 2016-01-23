@@ -1,5 +1,8 @@
 package fr.soprasteria.jeu;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.*;
 
 public class FenetreJeu extends JFrame{
@@ -40,7 +43,16 @@ public class FenetreJeu extends JFrame{
 		this.menuBar = new JMenuBar();
 		JMenu menu1 = new JMenu("Menu");
 		this.menuBar.add(menu1);
-		menu1.add((new JMenuItem("Editeur")));
+		JMenuItem itemEditeur = new JMenuItem("Editeur");
+		itemEditeur.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				FenetreJeu.getInstance().chargerEditeur();
+				
+			}
+		});
+		menu1.add(itemEditeur);
 		this.setJMenuBar(this.menuBar);
 	}
 	
@@ -49,4 +61,8 @@ public class FenetreJeu extends JFrame{
 		this.setVisible(true);
 	}
 
+	public void chargerEditeur()
+	{
+		this.setContentPane(PanneauEditeur.getInstance());
+	}
 }
