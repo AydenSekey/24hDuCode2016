@@ -70,6 +70,10 @@ public class WorldGrilleTest {
 	public void testSetGetCase() {
 		WorldGrille laby = new WorldGrille(5, 6);
 		Case case1 = new Case() {
+			@Override
+			public boolean canInteractWithLaser() {
+				return false;
+			}
 		};
 		
 		laby.setCase(0, 0, case1);

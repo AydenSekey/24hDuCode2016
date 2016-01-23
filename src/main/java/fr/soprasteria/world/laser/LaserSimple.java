@@ -9,17 +9,18 @@ import fr.soprasteria.world.Position;
  */
 public class LaserSimple implements Laser {
 	private final Position origine;
+	private final LaserDirection direction;
 	private Color couleur;
 	private Laser laserSource;
 	
-	public LaserSimple(Position origine, Laser source, Color couleur) {
+	public LaserSimple(Position origine, LaserDirection direction, Laser source, Color couleur) {
 		this.couleur = couleur;
 		this.origine = origine;
+		this.direction = direction;
 	}
 	
-	public LaserSimple(Position origine, Laser source) {
-		this.couleur = Color.red;
-		this.origine = origine;
+	public LaserSimple(Position origine, LaserDirection direction, Laser source) {
+		this(origine, direction, source, Color.red);
 	}
 	
 	@Override
@@ -49,5 +50,13 @@ public class LaserSimple implements Laser {
 			throw new IllegalArgumentException("Un laser ne doit pas être source de lui-même.");
 		}
 		this.laserSource = laserSource;
+	}
+
+	/**
+	 * Donne la direction du laser.
+	 * @return la direction du laser.
+	 */
+	public LaserDirection getDirection() {
+		return direction;
 	}
 }
