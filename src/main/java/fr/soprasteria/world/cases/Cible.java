@@ -18,4 +18,8 @@ public class Cible extends CaseLaserInteraction implements Declencheur {
 		declencher();
 	}
 
+	@Override
+	public String toString() {
+		return "Cible";
+	}
 }

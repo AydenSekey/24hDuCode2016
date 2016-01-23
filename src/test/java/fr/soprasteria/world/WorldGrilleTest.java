@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import fr.soprasteria.world.cases.Case;
 import fr.soprasteria.world.exceptions.ConstructionWorldGrilleException;
+import fr.soprasteria.world.fabriques.FabriqueSimpleWorlds;
 
 
 public class WorldGrilleTest {
@@ -78,5 +79,11 @@ public class WorldGrilleTest {
 		
 		laby.setCase(0, 0, case1);
 		assertTrue("Erreur de setCase ou getCase.", case1 == laby.getCase(0, 0));
+	}
+	
+	@Test
+	public void testToString() {
+		WorldGrille laby = FabriqueSimpleWorlds.emptyWorld(4, 3, 1, 2);
+		assertEquals("WorldGrille(nbColonnes=4, nbLignes=3)\n[CaseVide, CaseVide, CaseVide, CaseVide, \nCaseVide, CaseVide, CaseVide, CaseVide, \nCaseVide, Cible, CaseVide, CaseVide, \n]", laby.toString());
 	}
 }

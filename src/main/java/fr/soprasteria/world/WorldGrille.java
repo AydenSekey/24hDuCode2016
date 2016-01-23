@@ -20,6 +20,8 @@ along with Apyrinthe.  If not, see <http://www.gnu.org/licenses/>.
  */
 package fr.soprasteria.world;
 
+import java.io.Serializable;
+
 import fr.soprasteria.world.cases.Case;
 import fr.soprasteria.world.exceptions.ConstructionWorldGrilleException;
 import fr.soprasteria.world.exceptions.InvalideCoordonneeGrilleException;
@@ -28,7 +30,7 @@ import fr.soprasteria.world.exceptions.InvalideCoordonneeGrilleException;
  * Labyrinthe à deux dimensions représenté par une grille.
  * La coordonnée (0;0) au coin sud-ouest.
  */
-public class WorldGrille {
+public class WorldGrille implements Serializable {
 	private final int nbLignes;
 	private final int nbColonnes;
 	private final Case[] grille;
@@ -111,5 +113,21 @@ public class WorldGrille {
 	
 	public void setNom(String nom){
 		this.nom=nom;
+	}
+	
+	/**
+	 * 
+	 */
+	public String toString() {
+		StringBuilder builder = new StringBuilder(256);
+		builder.append("WorldGrille(nbColonnes=").append(nbColonnes).append(", nbLignes=").append(nbLignes).append(")\n[");
+		for(int li = 0; li < nbLignes; li++) {
+			for(int col = 0; col < nbColonnes; col++) {
+				builder.append(getCase(col, li)).append(", ");
+			}
+			builder.append("\n");
+		}
+		builder.append("]");
+		return builder.toString();
 	}
 }
