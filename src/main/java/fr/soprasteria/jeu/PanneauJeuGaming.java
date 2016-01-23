@@ -31,8 +31,8 @@ public class PanneauJeuGaming extends PanneauJeu{
 		super();
 	}
 	
-	public PanneauJeuGaming(WorldGrille withObstacleWorldExemple1) {
-		super(withObstacleWorldExemple1);
+	public PanneauJeuGaming(WorldGrille grille) {
+		super(grille);
 	}
 
 	public void dessinerLaser(JComponent element1, JComponent element2)

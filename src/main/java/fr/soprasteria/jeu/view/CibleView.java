@@ -13,8 +13,10 @@ public class CibleView extends CaseView{
 
 	public CibleView(Case c) {
 		super(c);
-//		this.setText("C");
-		
+	}
+	
+	public void afficherSaVraiNature()
+	{
 		try {
 			BufferedImage image = ImageIO.read(new File("src/main/resources/images/target.png"));
 			this.setIcon(new ImageIcon(image));

@@ -13,8 +13,10 @@ public class ObstacleView extends CaseView {
 
 	public ObstacleView(Case c) {
 		super(c);
-		//this.setText("X");
-		
+	}
+	
+	public void afficherSaVraiNature()
+	{
 		try {
 			BufferedImage image = ImageIO.read(new File("src/main/resources/images/wall.png"));
 			this.setIcon(new ImageIcon(image));

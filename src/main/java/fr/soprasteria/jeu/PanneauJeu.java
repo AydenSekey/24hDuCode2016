@@ -3,6 +3,7 @@ package fr.soprasteria.jeu;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
@@ -19,7 +20,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
+import fr.soprasteria.jeu.view.CaseView;
 import fr.soprasteria.jeu.view.CaseViewFactory;
+import fr.soprasteria.world.Personnage;
 import fr.soprasteria.world.WorldGrille;
 import fr.soprasteria.world.fabriques.FabriqueSimpleWorlds;
 
@@ -41,6 +44,9 @@ public class PanneauJeu extends JPanel{
 
 	private void constuire()
 	{
+		
+		System.out.println(this.grille);
+		
 		int x = this.grille.getNbColonnes();
 		int y = this.grille.getNbLignes();
 		this.setBackground(Color.white);
@@ -49,10 +55,15 @@ public class PanneauJeu extends JPanel{
 		for (int i = 0; i < y; i++) {
 			for (int j = 0; j < x; j++) {
 				JComponent b = CaseViewFactory.getCasePourModele(grille.getCase(j,i));
-				
+				b.setPreferredSize(new Dimension(10, 10));
 				structureCase[j][i] = b;
 				this.add(structureCase[j][i]);
 			}
+		}
+		
+		for(Personnage p: this.grille.getPersonnages())
+		{
+			((CaseView)structureCase[p.getX()][p.getY()]).afficherPersonnage();
 		}
 	}
 	
