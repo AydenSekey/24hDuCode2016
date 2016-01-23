@@ -1,6 +1,7 @@
 package fr.soprasteria.jeu;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.GridLayout;
 
 import javax.swing.JButton;
@@ -8,9 +9,6 @@ import javax.swing.JPanel;
 
 public class PanneauJeu extends JPanel{
 	
-	private JPanel gui;
-	private JButton[][] chessBoardSquares;
-	private JPanel chessBoard;
 	/**
 	 * static Singleton instance
 	 */
@@ -20,12 +18,12 @@ public class PanneauJeu extends JPanel{
 	 * Private constructor for singleton
 	 * @return 
 	 */
-	private JPanel PanneauJeu() {
-		gui	= new JPanel(new BorderLayout(3, 3));
-		chessBoardSquares = new JButton[8][8];
-		chessBoard = new JPanel(new GridLayout(0, 9));
-		gui.add(chessBoard);
-		return gui;
+	private PanneauJeu() {
+		this.setLayout(new GridLayout(0, 9));
+		
+		for (int i = 0; i < 9*9; i++) {
+			this.add(new JButton("coucou"));
+		}
 	}
 
 	/**

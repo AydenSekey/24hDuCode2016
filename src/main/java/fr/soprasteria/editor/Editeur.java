@@ -4,8 +4,10 @@ import java.awt.FlowLayout;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JSplitPane;
 
 import fr.soprasteria.view.ImagesCases;
 import fr.soprasteria.world.WorldGrille;
@@ -17,20 +19,25 @@ public class Editeur extends JPanel{
 	 */
 	private static Editeur instance;
 	private WorldGrille newWorld;	
-	private JPanel outils;
+	private JSplitPane splitPane;
+	private JPanel panelWorld;
+	private JPanel toolBox;
 	
 	/**
 	 * Private constructor for singleton
 	 */
 	public Editeur(){
-		
-		//splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,listScrollPane, pictureScrollPane);
-		
+				
 		newWorld=new WorldGrille(8,10);
-
-		this.outils=genererToolBox();
+		panelWorld = new JPanel();
+		toolBox=genererToolBox();
+		//toolBox = new JPanel(box);
+		splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,toolBox, panelWorld);
+		splitPane.setOneTouchExpandable(true);
+		splitPane.setDividerLocation(150);
 		
-		add(outils);
+		add(splitPane);
+		setVisible(true);
 	}
 	
 	/**
@@ -45,9 +52,9 @@ public class Editeur extends JPanel{
 	
 	private JPanel genererToolBox(){
 				
-		outils = new JPanel();
-		outils.setLayout(new FlowLayout());
-		
+		JPanel outils = new JPanel();
+		BoxLayout box = new BoxLayout(outils,BoxLayout.Y_AXIS);
+		outils.setLayout(box);
 		List <ImagesCases> listCases = new ArrayList<ImagesCases>();
 			
 		listCases.add(ImagesCases.OBSTACLE_SOLIDE);
