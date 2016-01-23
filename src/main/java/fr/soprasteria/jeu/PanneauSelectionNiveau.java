@@ -95,7 +95,7 @@ public class PanneauSelectionNiveau extends JPanel{
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					File file = new File("doc/levels/"+((JLabel)e.getComponent()).getText()+".lvl");
-					FenetreJeu.getInstance().changerPanneau(new PanneauJeu(FabriqueSimpleWorlds.emptyWorld(10, 5, 1, 2)));
+					FenetreJeu.getInstance().changerPanneau(new PanneauJeu(FabriqueSimpleWorlds.withObstacleWorldExemple1()));
 					
 					
 				}
