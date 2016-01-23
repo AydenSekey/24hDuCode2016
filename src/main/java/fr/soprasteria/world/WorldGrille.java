@@ -31,6 +31,7 @@ public class WorldGrille {
 	private final int nbLignes;
 	private final int nbColonnes;
 	private final Case[] grille;
+	private String nom;
 
 	/**
 	 * Crée un labyrinthe.
@@ -100,5 +101,14 @@ public class WorldGrille {
 	 */
 	public int getNbColonnes() {
 		return nbColonnes;
+	}
+
+	public String getNom() {
+		// TODO Auto-generated method stub
+		return nom;
+	}
+	
+	public void setNom(String nom){
+		this.nom=nom;
 	}
 }
