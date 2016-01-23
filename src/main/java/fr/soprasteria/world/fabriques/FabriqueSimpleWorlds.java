@@ -31,10 +31,12 @@ public final class FabriqueSimpleWorlds {
 			}
 		}
 		
-		world.setCase(2, 0, new Obstacle());
-		world.setCase(2, 1, new Obstacle());
-		world.setCase(2, 2, new Obstacle());
+		world.setCase(3, 0, new Obstacle());
+		world.setCase(3, 1, new Obstacle());
 		world.setCase(3, 2, new Obstacle());
+		world.setCase(4, 2, new Obstacle());
+		world.setCase(5, 2, new Obstacle());
+		world.setCase(6, 2, new Obstacle());
 		
 		
 		return world;

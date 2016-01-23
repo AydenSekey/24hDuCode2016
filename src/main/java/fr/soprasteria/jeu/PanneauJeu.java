@@ -42,21 +42,16 @@ public class PanneauJeu extends JPanel{
 	{
 		int x = this.grille.getNbColonnes();
 		int y = this.grille.getNbLignes();
-		
-		this.setLayout(new GridLayout(x,y));
+		this.setBackground(Color.white);
+		this.setLayout(new GridLayout(y, x));
 		structureCase = new JComponent[x][y];
-		for (int i = 0; i < x; i++) {
-			for (int j = 0; j < y; j++) {
-				JComponent b = CaseViewFactory.getCasePourModele(grille.getCase(i,j));
+		for (int i = 0; i < y; i++) {
+			for (int j = 0; j < x; j++) {
+				JComponent b = CaseViewFactory.getCasePourModele(grille.getCase(j,i));
 				
-				structureCase[i][j] = b;
+				structureCase[j][i] = b;
+				this.add(structureCase[j][i]);
 			}
-		}
-		
-		for (int ii = 0; ii < x; ii++) {
-            for (int jj = 0; jj < y; jj++) {
-            	this.add(structureCase[ii][jj]);
-            }
 		}
 	}
 	
