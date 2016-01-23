@@ -51,5 +51,6 @@ public class FenetreJeu extends JFrame{
 	public void chargerEditeur()
 	{
 		this.setContentPane(PanneauEditeur.getInstance());
+		this.validate();
 	}
 }

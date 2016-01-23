@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import fr.soprasteria.world.cases.Case;
 import fr.soprasteria.world.exceptions.ConstructionWorldGrilleException;
 
 

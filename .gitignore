@@ -2,6 +2,7 @@
 # Eclpise files
 .classpath
 .project
+.settings
 # build directory
 target
 
