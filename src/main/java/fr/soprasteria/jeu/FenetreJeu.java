@@ -12,7 +12,7 @@ public class FenetreJeu extends JFrame{
 	 */
 	private static FenetreJeu instance;
 	
-	private static final String _FRAME_NAME= "Trouvez un putain de nom au jeu";
+	private static final String _FRAME_NAME= "Marechal Laser";
 	
 	private JMenuBar menuBar;
 
