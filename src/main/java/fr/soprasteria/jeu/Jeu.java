@@ -4,20 +4,29 @@ import javax.swing.JFrame;
 
 public class Jeu{
 	
-	private static Jeu _instance;
 	private FenetreJeu _FENETRE;
+	private static final String _NOM= "Marechal Laser";
 	
-	private Jeu(){
+	/**
+	 * static Singleton instance
+	 */
+	private static Jeu instance;
+
+	/**
+	 * Private constructor for singleton
+	 */
+	private Jeu() {
 		init();
 	}
-	
-	public static Jeu getInstance()
-	{
-		if(_instance == null)
-		{
-			_instance = new Jeu();
+
+	/**
+	 * Static getter method for retrieving the singleton instance
+	 */
+	public static Jeu getInstance() {
+		if (instance == null) {
+			instance = new Jeu();
 		}
-		return _instance;
+		return instance;
 	}
 	
 	private void init()
@@ -28,6 +37,11 @@ public class Jeu{
 	public void start()
 	{
 		_FENETRE.start();
+	}
+	
+	public String getNom()
+	{
+		return _NOM;
 	}
 
 }
