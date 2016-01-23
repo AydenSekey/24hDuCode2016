@@ -7,11 +7,14 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import fr.soprasteria.world.fabriques.FabriqueSimpleWorlds;
 
 public class PanneauSelectionNiveau extends JPanel{
 
@@ -91,7 +94,9 @@ public class PanneauSelectionNiveau extends JPanel{
 				
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					System.out.println(((JLabel)e.getComponent()).getText());
+					File file = new File("doc/levels/"+((JLabel)e.getComponent()).getText()+".lvl");
+					FenetreJeu.getInstance().changerPanneau(new PanneauJeu(FabriqueSimpleWorlds.emptyWorld(10, 5, 1, 2)));
+					
 					
 				}
 			});
