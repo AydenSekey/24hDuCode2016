@@ -15,4 +15,8 @@ public class Obstacle extends CaseLaserInteraction {
 		// Ne rien faire
 	}
 
+	@Override
+	public String toString() {
+		return "Obstacle";
+	}
 }

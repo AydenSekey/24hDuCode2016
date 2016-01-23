@@ -1,9 +1,11 @@
 package fr.soprasteria.world.cases;
 
+import java.io.Serializable;
+
 /**
  * Case du monde. 
  */
-public abstract class Case {
+public abstract class Case implements Serializable {
 	
 	public Case() {
 		super();

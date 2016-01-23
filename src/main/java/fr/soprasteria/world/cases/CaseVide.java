@@ -11,4 +11,8 @@ public class CaseVide extends Case {
 		return false;
 	}
 
+	@Override
+	public String toString() {
+		return "CaseVide";
+	}
 }
