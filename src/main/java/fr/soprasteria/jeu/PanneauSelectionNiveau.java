@@ -2,7 +2,11 @@ package fr.soprasteria.jeu;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -24,8 +28,10 @@ public class PanneauSelectionNiveau extends JPanel{
 		this.setLayout(new BorderLayout());
 		this.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 		JLabel titre = new JLabel("Levels");
+		titre.setHorizontalAlignment(JLabel.CENTER);
+		titre.setFont(new Font("Serif", Font.PLAIN, 30));
 		this.add(titre,BorderLayout.NORTH);
-		this.add(this.getPanneauListeNiveaux(),BorderLayout.SOUTH);
+		this.add(this.getPanneauListeNiveaux(),BorderLayout.CENTER);
 		
 	}
 
@@ -42,13 +48,53 @@ public class PanneauSelectionNiveau extends JPanel{
 	public JPanel getPanneauListeNiveaux()
 	{
 		JPanel panneau = new JPanel();
-		
+		panneau.setOpaque(true);
+		panneau.setBackground(Color.white);
 		panneau.setLayout(new FlowLayout());
-		for(int i = 0; i < 5; i++)
+		for(String niv: (Jeu.getInstance().listerNiveaux()))
 		{
-			JLabel l = new JLabel(""+i);
-			l.setSize(50, 50);
-			l.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+			JLabel l = new JLabel(niv);
+			Dimension d = new Dimension(75,75);
+			l.setPreferredSize(d);
+			l.setMinimumSize(d);
+			l.setSize(d);
+//			l.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+			l.setHorizontalAlignment(JLabel.CENTER);
+			l.setBackground(Color.black);
+			l.setForeground(Color.white);
+			l.setOpaque(true);
+			l.addMouseListener(new MouseListener() {
+				
+				@Override
+				public void mouseReleased(MouseEvent e) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+				@Override
+				public void mousePressed(MouseEvent e) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+				@Override
+				public void mouseExited(MouseEvent e) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+				@Override
+				public void mouseEntered(MouseEvent e) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					System.out.println(((JLabel)e.getComponent()).getText());
+					
+				}
+			});
 			panneau.add(l);
 		}
 		
