@@ -31,7 +31,10 @@ import javax.swing.SwingUtilities;
 
 import fr.soprasteria.jeu.view.CaseView;
 import fr.soprasteria.world.Personnage;
+import fr.soprasteria.world.Position;
 import fr.soprasteria.world.WorldGrille;
+import fr.soprasteria.world.laser.Laser;
+import fr.soprasteria.world.laser.LaserDirection;
 
 public class PanneauJeuGaming extends PanneauJeu{
 
@@ -88,26 +91,16 @@ public class PanneauJeuGaming extends PanneauJeu{
 		perso.setX(perso.getX()-1);
 	}
 
-	public void dessinerLaser(JComponent element1, JComponent element2)
+	public void dessinerLaser(Point pointSrc, Point pointCible, Color couleur)
 	{
 		Graphics g = this.getGraphics();
 		Graphics2D g2d = ( Graphics2D ) g;
         g2d.setRenderingHint ( RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON );
-
-        g2d.setPaint ( Color.BLACK );
-        //g2.drawLine(x1,  y1,  x2,  y2);
-		
-		Point pt = new Point(element1.getLocation()); 
-		Point pt2 = new Point(element2.getLocation());
-		
-//		System.out.println(c.getLocationOnScreen().getX());
-		System.out.println("actionStat");
-
-		g2d.drawLine((int)element1.getLocationOnScreen().getX(), (int)element1.getLocationOnScreen().getY(), (int)element2.getLocationOnScreen().getX(), (int)element2.getLocationOnScreen().getY());
+        g2d.setPaint (couleur);
+		g2d.drawLine((int)pointSrc.getX(), (int)pointSrc.getY(), (int)pointCible.getX(), (int)pointCible.getY());
 	}
 
 	public JPanel lancerJeu() {
-		// TODO Auto-generated method stub
 		JComponent c = this.getGridButton(2,3);
 		
 		
@@ -118,20 +111,85 @@ public class PanneauJeuGaming extends PanneauJeu{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-//				actionStat();
-				JComponent c = getGridButton(2,3);
-				JComponent d = getGridButton(7,7);
-				dessinerLaser(c,d);
+				dessinerLaser(new Laser(new Position(0, 0), LaserDirection.SUD_OUEST));
 			}
+
 		});
 		this.add(boutonStat);
-//		Point pt = new Point(c.getLocation()); 
-//		SwingUtilities.convertPointToScreen(pt, c); 
-//		System.out.println(c.getLocationOnScreen());
 		
 		return this;
 	}
 
 
+	private void dessinerLaser(Laser laser) {
+		Position origine = laser.getOrigine();
+		Position arret = laser.getArret();
+		JComponent c = getGridButton(origine.getX(), origine.getY());
+		Point pSrc = c.getLocationOnScreen();
+		Point pCible;
+		if(arret == null) {
+			// Laser non interrompu -> doit atteindre le bord de l'écran
+			pCible = determinerBordPan(c.getLocationOnScreen(), laser.getDirection());
+		} else {
+			// Laser interrompu par une case
+			pCible = getGridButton(arret.getX(), arret.getY()).getLocationOnScreen();
+		}
+		dessinerLaser(pSrc, pCible, laser.getCouleur());
+	}
+
+	/**
+	 * Détermine un point dans le prolongement de la direction permettant d'avoir un trait finissant au bord ou en dehors de l'écran.
+	 * @param origine les coordonnées d'origine du laser
+	 * @param direction la direction du laser
+	 * @return le point de fin du segmet de laser.
+	 */
+	private Point determinerBordPan(Point origine, LaserDirection direction) {
+		Point bordPoint = null;
+		int xDistanceWithMin;
+		int yDistanceWithMin;
+		int minDistance;
+		
+		switch (direction) {
+			case OUEST:
+				bordPoint = new Point(this.getWidth(), (int) origine.getY());
+				break;
+			case NORD_OUEST:
+				xDistanceWithMin = (int) origine.getX();
+				yDistanceWithMin = (int) origine.getY();
+				minDistance = Math.min(xDistanceWithMin, yDistanceWithMin);
+				bordPoint = new Point((int) origine.getX() - minDistance,(int) origine.getY() - minDistance);
+				break;
+			case NORD:
+				bordPoint = new Point((int) origine.getX(), 0);
+				break;
+			case NORD_EST:
+				xDistanceWithMin = this.getWidth() - (int) origine.getX();
+				yDistanceWithMin = (int) origine.getY();
+				minDistance = Math.min(xDistanceWithMin, yDistanceWithMin);
+				bordPoint = new Point((int) origine.getX() + minDistance, (int) origine.getY() - minDistance);
+				break;
+			case EST:
+				bordPoint = new Point(this.getWidth(), (int) origine.getY());
+				break;
+			case SUD_EST:
+				xDistanceWithMin = this.getWidth() - (int) origine.getX();
+				yDistanceWithMin = this.getHeight() - (int) origine.getY();
+				minDistance = Math.min(xDistanceWithMin, yDistanceWithMin);
+				bordPoint = new Point((int) origine.getX() + minDistance, (int) origine.getY() + minDistance);
+				break;
+			case SUD:
+				bordPoint = new Point((int) origine.getX(), this.getHeight());
+				break;
+			case SUD_OUEST:
+				xDistanceWithMin = (int) origine.getX();
+				yDistanceWithMin = this.getHeight() - (int) origine.getY();
+				minDistance = Math.min(xDistanceWithMin, yDistanceWithMin);
+				bordPoint = new Point((int) origine.getX() - minDistance, (int) origine.getY() + minDistance);
+				break;
+			default:
+				break;
+		}
+		return bordPoint;
+	}
 	
 }
