@@ -66,6 +66,9 @@ public class PanneauJeuGaming extends PanneauJeu{
 				if(e.getKeyCode() == KeyEvent.VK_LEFT)
 				{
 					bougerPersonnageAGauche(0);
+					Laser laserTest = new Laser(new Position(grille.getNbColonnes() - 1, 0), LaserDirection.SUD_OUEST);
+					laserTest.setArret(new Position(0, grille.getNbLignes() - 1));
+					dessinerLaser(laserTest);
 				}
 			}
 		});
@@ -111,7 +114,7 @@ public class PanneauJeuGaming extends PanneauJeu{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				dessinerLaser(new Laser(new Position(0, 0), LaserDirection.SUD_OUEST));
+				
 			}
 
 		});
@@ -125,14 +128,14 @@ public class PanneauJeuGaming extends PanneauJeu{
 		Position origine = laser.getOrigine();
 		Position arret = laser.getArret();
 		JComponent c = getGridButton(origine.getX(), origine.getY());
-		Point pSrc = c.getLocationOnScreen();
+		Point pSrc = c.getLocation();
 		Point pCible;
 		if(arret == null) {
 			// Laser non interrompu -> doit atteindre le bord de l'écran
-			pCible = determinerBordPan(c.getLocationOnScreen(), laser.getDirection());
+			pCible = determinerBordPan(c.getLocation(), laser.getDirection());
 		} else {
 			// Laser interrompu par une case
-			pCible = getGridButton(arret.getX(), arret.getY()).getLocationOnScreen();
+			pCible = getGridButton(arret.getX(), arret.getY()).getLocation();
 		}
 		dessinerLaser(pSrc, pCible, laser.getCouleur());
 	}
