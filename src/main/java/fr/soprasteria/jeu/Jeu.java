@@ -52,6 +52,9 @@ public class Jeu{
 	{
 		File rep = new File("doc/levels");
 		File edit_rep = new File("doc/levels/editor_levels");
+		if(!edit_rep.exists()) {
+			edit_rep.mkdirs();
+		}
 		ArrayList<String> niveaux = new ArrayList<>();
 		for(String niv: rep.list())
 		{
