@@ -17,8 +17,8 @@ public enum ImagesCases{
 //	OBSTACLE_DESTRUCTIBLE("Obstacle destructible", ""),
 //	REFLEXION("Reflexion", ""),
 	PERSONNAGE("Personnage","src/main/resources/images/character.png","Personnage"),
-	CIBLE("Cible","src/main/resources/images/target.png","Cible");
-	//REFRACTION("Refraction",""),
+	CIBLE("Cible","src/main/resources/images/target.png","Cible"),
+	REDIRECTION("Redirection","src/main/resources/images/redirection.png","Redirection");
 	//DIFFRACTION("Diffraction",""),
 	//DEVIATION("Deviation","");
 

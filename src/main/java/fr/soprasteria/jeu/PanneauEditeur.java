@@ -129,6 +129,9 @@ public class PanneauEditeur extends JPanel implements MouseListener,ActionListen
 	public ArrayList<String> listerNiveaux()
 	{
 		File edit_rep = new File("doc/levels/editor_levels");
+		if(!edit_rep.exists()) {
+			edit_rep.mkdirs();
+		}
 		ArrayList<String> niveaux = new ArrayList<>();
 		for(String niv: edit_rep.list())
 		{

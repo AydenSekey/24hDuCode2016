@@ -21,7 +21,7 @@ public class WorldFileSerializer implements WorldFileMapper {
 			throw new IllegalArgumentException("null passer en paramètre pour worldFile.");
 		// Vérification des infos de fichier
 		if(!worldFile.exists())
-			throw new IOException("Le fichier " + worldFile.getAbsolutePath() + "n'existe pas.");
+			throw new IOException("Le fichier " + worldFile.getAbsolutePath() + " n'existe pas.");
 		if(!worldFile.isFile())
 					throw new IOException(worldFile.getAbsolutePath() + " n'est pas un fichier.");
 		
