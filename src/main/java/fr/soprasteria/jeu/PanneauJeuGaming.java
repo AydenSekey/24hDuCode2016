@@ -72,7 +72,7 @@ public class PanneauJeuGaming extends PanneauJeu implements CibleListener {
 					if(!grille.getPersonnages().isEmpty()) {
 						Personnage perso = grille.getPersonnages().get(0);
 						Laser laser = perso.tirer();
-						laserControler.calculTirLaser(laser);
+						laserControler.calculTirLaserRecursif(laser);
 						dessinerLaser(laser);
 					}
 				}
