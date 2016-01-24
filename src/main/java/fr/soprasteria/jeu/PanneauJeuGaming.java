@@ -7,7 +7,14 @@ import java.awt.Point;
 import java.awt.RenderingHints;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.IOException;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JComponent;
 
 import fr.soprasteria.jeu.moteur.tirlaser.TirLaserControler;
@@ -74,6 +81,7 @@ public class PanneauJeuGaming extends PanneauJeu implements CibleListener {
 						Laser laser = perso.tirer();
 						laserControler.calculTirLaserRecursif(laser);
 						dessinerLaser(laser);
+						jouerSon("shoot.wav");
 					}
 				}
 				if(e.getKeyCode() == KeyEvent.VK_NUMPAD4) {
@@ -113,28 +121,62 @@ public class PanneauJeuGaming extends PanneauJeu implements CibleListener {
 	
 	public void bougerPersonnageADroite(int persoNumero)
 	{
+		jouerSon("blop.wav");
 		Personnage perso = this.grille.getPersonnages().get(persoNumero);
 		CaseView caseView = (CaseView) this.getGridButton(perso.getX(), perso.getY());
-		caseView.retirerPersonnage();
-		CaseView caseViewVoisine = (CaseView) this.getGridButton(perso.getX()+1, perso.getY());
-		caseViewVoisine.afficherPersonnage(perso);
-		perso.setX(perso.getX()+1);
+		if(perso.getX() < this.grille.getNbColonnes() - 1) {
+			caseView.retirerPersonnage();
+			CaseView caseViewVoisine = (CaseView) this.getGridButton(perso.getX()+1, perso.getY());
+			caseViewVoisine.afficherPersonnage(perso);
+			perso.setX(perso.getX()+1);
+		}
 	}
 	
 	public void bougerPersonnageAGauche(int persoNumero)
 	{
+		jouerSon("blop2.wav");
 		Personnage perso = this.grille.getPersonnages().get(persoNumero);
 		CaseView caseView = (CaseView) this.getGridButton(perso.getX(), perso.getY());
-		caseView.retirerPersonnage();
-		CaseView caseViewVoisine = (CaseView) this.getGridButton(perso.getX()-1, perso.getY());
-		caseViewVoisine.afficherPersonnage(perso);
-		perso.setX(perso.getX()-1);
-		perso.setCaseOccupee(caseViewVoisine.getModele());
+		if(perso.getX() > 0) {
+			caseView.retirerPersonnage();
+			CaseView caseViewVoisine = (CaseView) this.getGridButton(perso.getX()-1, perso.getY());
+			caseViewVoisine.afficherPersonnage(perso);
+			perso.setX(perso.getX()-1);
+			perso.setCaseOccupee(caseViewVoisine.getModele());
+		}
 	}
 	
 	public void finirNiveau()
 	{
 		FenetreJeu.getInstance().changerPanneau(PanneauSelectionNiveau.getInstance());
+	}
+	
+	public void jouerSon(String soundName){   
+		AudioInputStream audioInputStream = null;
+		try {
+			File path = new File("doc/sons/" + soundName).getAbsoluteFile();
+			audioInputStream = AudioSystem.getAudioInputStream(path);
+		} catch (UnsupportedAudioFileException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		Clip clip = null;
+		try {
+			clip = AudioSystem.getClip();
+		} catch (LineUnavailableException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		try {
+			clip.open(audioInputStream);
+		} catch (LineUnavailableException | IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		clip.start();
 	}
 
 	public void dessinerLaser(Point pointSrc, Point pointCible, Color couleur)
