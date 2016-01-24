@@ -9,6 +9,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -79,8 +80,11 @@ public class PanneauJeuGaming extends PanneauJeu implements CibleListener {
 					if(!grille.getPersonnages().isEmpty()) {
 						Personnage perso = grille.getPersonnages().get(0);
 						Laser laser = perso.tirer();
-						laserControler.calculTirLaserRecursif(laser);
+						List<Laser> lasers = laserControler.calculTirLaserRecursif(laser);
 						dessinerLaser(laser);
+						for(Laser las : lasers) {
+							dessinerLaser(las);
+						}
 						jouerSon("shoot.wav");
 					}
 				}

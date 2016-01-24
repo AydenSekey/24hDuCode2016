@@ -68,13 +68,22 @@ public class TirLaserControler {
 		return newLasers;
 	}
 	
-	public void calculTirLaserRecursif(Laser laser) {
+	/**
+	 * Calcul récursivement le chemin parcouru par un lasers
+	 * @param laser le laser d'origine
+	 * @return l'ensemble des lasers constituant les chemins parcourus
+	 */
+	public List<Laser> calculTirLaserRecursif(Laser laser) {
+		List<Laser> lasersARafraichir = new ArrayList<>();
 		List<Laser> lasers = calculTirLaser(laser);
+		lasersARafraichir.addAll(lasers);
 		int nbCalcul = 0;
 		while(!lasers.isEmpty() && nbCalcul < NB_CALCUL_RECURSIFS_MAX) {
 			lasers = calculTirLaser(lasers);
+			lasersARafraichir.addAll(lasers);
 			nbCalcul++;
 		}
+		return lasersARafraichir;
 	}
 
 	private Position nextPositionDirection(Position origin, LaserDirection direction) {
