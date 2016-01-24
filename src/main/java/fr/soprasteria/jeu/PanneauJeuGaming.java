@@ -1,19 +1,14 @@
 package fr.soprasteria.jeu;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.RenderingHints;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-import javax.swing.JButton;
 import javax.swing.JComponent;
-import javax.swing.JPanel;
 
 import fr.soprasteria.jeu.moteur.tirlaser.TirLaserControler;
 import fr.soprasteria.jeu.view.CaseView;
@@ -47,10 +42,12 @@ public class PanneauJeuGaming extends PanneauJeu{
 				if(e.getKeyCode() == KeyEvent.VK_RIGHT)
 				{
 					bougerPersonnageADroite(0);
+					repaint();
 				}
 				if(e.getKeyCode() == KeyEvent.VK_LEFT)
 				{
 					bougerPersonnageAGauche(0);
+					repaint();
 				}
 				if(e.getKeyCode() == KeyEvent.VK_BACK_SPACE)
 				{
@@ -133,27 +130,6 @@ public class PanneauJeuGaming extends PanneauJeu{
         g2d.setPaint (couleur);
 		g2d.drawLine((int)pointSrc.getX(), (int)pointSrc.getY(), (int)pointCible.getX(), (int)pointCible.getY());
 	}
-
-	public JPanel lancerJeu() {
-		JComponent c = this.getGridButton(2,3);
-		
-		
-		JButton boutonStat = new JButton("Stats");
-		boutonStat.setAlignmentX(Component.CENTER_ALIGNMENT);
-		boutonStat.setBackground(Color.white);
-		boutonStat.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				
-			}
-
-		});
-		this.add(boutonStat);
-		
-		return this;
-	}
-
 
 	private void dessinerLaser(Laser laser) {
 		Position origine = laser.getOrigine();
