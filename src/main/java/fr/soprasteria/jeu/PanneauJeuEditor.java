@@ -15,6 +15,7 @@ import fr.soprasteria.jeu.view.CaseViewFactory;
 import fr.soprasteria.world.Personnage;
 import fr.soprasteria.world.WorldGrille;
 import fr.soprasteria.world.cases.Case;
+import fr.soprasteria.world.cases.CaseRedirection;
 import fr.soprasteria.world.cases.CaseVide;
 import fr.soprasteria.world.cases.Cible;
 import fr.soprasteria.world.cases.Obstacle;
@@ -61,6 +62,9 @@ public class PanneauJeuEditor extends PanneauJeu implements MouseListener{
 				break;
 			
 				case "Obstacle" : newCase = new Obstacle();
+				break;
+				
+				case "Redirection" : newCase = new CaseRedirection();
 				break;
 				
 				case "Personnage" : 

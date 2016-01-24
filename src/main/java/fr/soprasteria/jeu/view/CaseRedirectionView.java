@@ -19,7 +19,7 @@ public class CaseRedirectionView extends CaseView {
 	{
 		try {
 			// TODO Modifier l'image
-			BufferedImage image = ImageIO.read(new File("src/main/resources/images/wall.png"));
+			BufferedImage image = ImageIO.read(new File("src/main/resources/images/redirection.png"));
 			this.setIcon(new ImageIcon(image));
 		} catch (IOException e) {
 			e.printStackTrace();

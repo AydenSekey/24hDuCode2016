@@ -62,7 +62,7 @@ public class EditeurView extends JPanel implements ActionListener{
 		//listCases.add(ImagesCases.REFLEXION);
 		listCases.add(ImagesCases.PERSONNAGE);
 		listCases.add(ImagesCases.CIBLE);
-		//listCases.add(ImagesCases.REFRACTION);
+		listCases.add(ImagesCases.REDIRECTION);
 		//listCases.add(ImagesCases.DIFFRACTION);
 		//listCases.add(ImagesCases.DEVIATION);		
 		
