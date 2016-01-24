@@ -5,11 +5,16 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.imageio.ImageIO;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -19,6 +24,7 @@ import fr.soprasteria.jeu.FenetreJeu;
 import fr.soprasteria.jeu.PanneauJeuEditor;
 import fr.soprasteria.view.ImagesCases;
 import fr.soprasteria.world.WorldGrille;
+import fr.soprasteria.world.cases.Case;
 import fr.soprasteria.world.fabriques.FabriqueSimpleWorlds;
 
 public class EditeurView extends JPanel implements ActionListener{
@@ -33,13 +39,23 @@ public class EditeurView extends JPanel implements ActionListener{
 	private JPanel toolBox;
 	private JScrollPane scrollpane1;
 	private JScrollPane scrollpane2;
-	private JButton selectButton;
 	private EditeurController editeurController;
+	private List<ImagesCases> listCases;
 	
 	/**
 	 * Private constructor for singleton
 	 */
 	private EditeurView(){
+		
+		listCases = new ArrayList<ImagesCases>();
+		
+		listCases.add(ImagesCases.OBSTACLE_SOLIDE);
+		//listCases.add(ImagesCases.OBSTACLE_DESTRUCTIBLE);
+		//listCases.add(ImagesCases.REFLEXION);
+		listCases.add(ImagesCases.CIBLE);
+		//listCases.add(ImagesCases.REFRACTION);
+		//listCases.add(ImagesCases.DIFFRACTION);
+		//listCases.add(ImagesCases.DEVIATION);
 		
 		grille = FabriqueSimpleWorlds.emptyWorld(20, 10);
 		
@@ -90,60 +106,43 @@ public class EditeurView extends JPanel implements ActionListener{
 		BoxLayout box = new BoxLayout(outils,BoxLayout.Y_AXIS);
 		outils.setLayout(box);
 		
-		selectButton = new JButton();
-		
-		List <ImagesCases> listCases = new ArrayList<ImagesCases>();
-			
-		listCases.add(ImagesCases.OBSTACLE_SOLIDE);
-		listCases.add(ImagesCases.OBSTACLE_DESTRUCTIBLE);
-		listCases.add(ImagesCases.REFLEXION);
-		listCases.add(ImagesCases.CIBLE);
-		listCases.add(ImagesCases.REFRACTION);
-		listCases.add(ImagesCases.DIFFRACTION);
-		listCases.add(ImagesCases.DEVIATION);
-		
+		int i = 1;
 		for (ImagesCases imageCase:listCases){
 			
-			JButton image = new JButton(imageCase.getNom());
+			JButton JBImage = new JButton();
+			JBImage.setName(""+i);
+			try {
+				BufferedImage image = ImageIO.read(new File(imageCase.getLienImage()));
+				JBImage.setIcon(new ImageIcon(image));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
-			image.addActionListener(this);
+			JBImage.addActionListener(this);
 			
 			Dimension dim = new Dimension(100,100);
-			image.setPreferredSize(dim);
-			image.setMaximumSize(dim);
-			image.setMinimumSize(dim);
+			JBImage.setPreferredSize(dim);
+			JBImage.setMaximumSize(dim);
+			JBImage.setMinimumSize(dim);
 			
-			image.setAlignmentX(Component.CENTER_ALIGNMENT);
+			JBImage.setAlignmentX(Component.CENTER_ALIGNMENT);
 			
 			Dimension minSize = new Dimension(5, 10);
 			Dimension prefSize = new Dimension(5, 10);
 			Dimension maxSize = new Dimension(Short.MAX_VALUE, 10);
 			outils.add(new Box.Filler(minSize, prefSize, maxSize));
 			
-			outils.add(image);
-			
+			outils.add(JBImage);
+			i = i +1;
 		}
 		
 		return outils;
 	}
-	
-	private void setSelectionBouton(JButton bouton){
-		this.selectButton=bouton;
-	}
-	
-	private JButton getSelectionBouton(){
-		return selectButton;
-	}
 
 	@Override
-	public void actionPerformed(ActionEvent e) {
+	public void actionPerformed(ActionEvent arg0) {
 		// TODO Auto-generated method stub
 		
-		((Component) e.getSource()).setEnabled(false);
-		selectButton.setEnabled(true);
-		
-		this.setSelectionBouton((JButton)e.getSource());		
-	}
-	
-	
+	}	
 }
