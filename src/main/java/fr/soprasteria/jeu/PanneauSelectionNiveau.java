@@ -137,7 +137,7 @@ public class PanneauSelectionNiveau extends JPanel{
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					System.out.println(((JPanel)e.getSource()).getName());
-					File file = new File("doc/editor_levels/"+((JPanel)e.getSource()).getName()+".lvl");
+					File file = new File("doc/levels/editor_levels/"+((JPanel)e.getSource()).getName()+".lvl");
 					
 					try {
 						WorldGrille g = (new WorldFileSerializer()).load(file);
