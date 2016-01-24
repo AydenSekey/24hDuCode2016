@@ -30,6 +30,19 @@ public class Laser {
 	}
 	
 	/**
+	 * Crée un laser de départ (sans source)
+	 * @param origine la position (coordonnée de case) d'origine du laser
+	 * @param direction la direction du laser
+	 * @param couleur la couleur du laser
+	 */
+	public Laser(Position origine, LaserDirection direction, Color couleur) {
+		this.couleur = couleur;
+		this.origine = origine;
+		this.direction = direction;
+		this.arret = null;
+	}
+	
+	/**
 	 * Crée un laser rouge.
 	 * @param origine la position (coordonnée de case) d'origine du laser
 	 * @param direction la direction du laser

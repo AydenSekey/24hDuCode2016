@@ -3,12 +3,16 @@ package fr.soprasteria.world;
 import java.awt.Color;
 
 import fr.soprasteria.world.cases.Case;
+import fr.soprasteria.world.laser.Laser;
+import fr.soprasteria.world.laser.LaserDirection;
+import fr.soprasteria.world.laser.LaserTireur;
 
 /**
  * Personnage/joueur.
  */
-public class Personnage {
+public class Personnage implements LaserTireur {
 	private Color couleurLaser;
+	private LaserDirection directionArme;
 	private Case caseOccupee;
 	private int x;
 	private int y;
@@ -36,6 +40,12 @@ public class Personnage {
 		this.couleurLaser = couleurLaser;
 		this.x = x;
 		this.y = y;
+		this.directionArme = LaserDirection.NORD;
+	}
+	
+	@Override
+	public Laser tirer() {
+		return new Laser(new Position(x, y), directionArme, couleurLaser);
 	}
 
 	/**
@@ -92,6 +102,20 @@ public class Personnage {
 	 */
 	public void setY(int y) {
 		this.y = y;
+	}
+
+	/**
+	 * @return the directionArme
+	 */
+	public LaserDirection getDirectionArme() {
+		return directionArme;
+	}
+
+	/**
+	 * @param directionArme the directionArme to set
+	 */
+	public void setDirectionArme(LaserDirection directionArme) {
+		this.directionArme = directionArme;
 	}
 }
 
