@@ -67,7 +67,7 @@ public class TirLaserControler {
 		}
 		return newLasers;
 	}
-	
+
 	/**
 	 * Calcul récursivement le chemin parcouru par un lasers
 	 * @param laser le laser d'origine
