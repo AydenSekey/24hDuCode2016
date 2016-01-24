@@ -15,10 +15,13 @@ import fr.soprasteria.jeu.view.CaseView;
 import fr.soprasteria.world.Personnage;
 import fr.soprasteria.world.Position;
 import fr.soprasteria.world.WorldGrille;
+import fr.soprasteria.world.cases.Case;
+import fr.soprasteria.world.cases.Cible;
+import fr.soprasteria.world.cases.CibleListener;
 import fr.soprasteria.world.laser.Laser;
 import fr.soprasteria.world.laser.LaserDirection;
 
-public class PanneauJeuGaming extends PanneauJeu{
+public class PanneauJeuGaming extends PanneauJeu implements CibleListener {
 	private TirLaserControler laserControler;
 	
 	public PanneauJeuGaming() {
@@ -28,9 +31,21 @@ public class PanneauJeuGaming extends PanneauJeu{
 	public PanneauJeuGaming(WorldGrille grille) {
 		super(grille);
 		laserControler = new TirLaserControler(grille);
+		miseCibleEnEcoute();
 		this.initialiserComportement();
 	}
 	
+	private void miseCibleEnEcoute() {
+		for(int col = 0; col < grille.getNbColonnes(); col++) {
+			for(int li = 0; li < grille.getNbLignes(); li++) {
+				Case c = grille.getCase(col, li);
+				if(c instanceof Cible) {
+					((Cible) c).addListener(this);
+				}
+			}
+		}
+	}
+
 	public void initialiserComportement()
 	{
 		
@@ -125,10 +140,14 @@ public class PanneauJeuGaming extends PanneauJeu{
 	public void dessinerLaser(Point pointSrc, Point pointCible, Color couleur)
 	{
 		Graphics g = this.getGraphics();
-		Graphics2D g2d = ( Graphics2D ) g;
-        g2d.setRenderingHint ( RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON );
-        g2d.setPaint (couleur);
-		g2d.drawLine((int)pointSrc.getX(), (int)pointSrc.getY(), (int)pointCible.getX(), (int)pointCible.getY());
+		if(g != null) {
+			Graphics2D g2d = ( Graphics2D ) g;
+	        g2d.setRenderingHint ( RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON );
+	        g2d.setPaint (couleur);
+			g2d.drawLine((int)pointSrc.getX(), (int)pointSrc.getY(), (int)pointCible.getX(), (int)pointCible.getY());
+		} else {
+			System.err.println("WARNING : support de dessin indisponible.");
+		}
 	}
 
 	private void dessinerLaser(Laser laser) {
@@ -215,5 +234,11 @@ public class PanneauJeuGaming extends PanneauJeu{
 		int midY = (int) pos.getY() + height / 2;
 				
 		return new Point(midX, midY);
+	}
+
+	@Override
+	public void cibleTouchee() {
+		System.out.println("SUCCESS !");
+		finirNiveau();
 	}
 }

@@ -34,6 +34,7 @@ public class WorldFileSerializer implements WorldFileMapper {
 				throw new IOException("Erreur au chargement du fichier " + worldFile.getAbsolutePath() + " : ne contient pas la classe WorldGrille.", e);
 			}
 		}
+		
 		return world;
 	}
 

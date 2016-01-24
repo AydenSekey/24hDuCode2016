@@ -8,13 +8,16 @@ import java.awt.Font;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
+import java.io.IOException;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import fr.soprasteria.world.WorldGrille;
 import fr.soprasteria.world.fabriques.FabriqueSimpleWorlds;
+import fr.soprasteria.world.persistence.WorldFileSerializer;
 
 public class PanneauSelectionNiveau extends JPanel{
 
@@ -97,8 +100,18 @@ public class PanneauSelectionNiveau extends JPanel{
 				public void mouseClicked(MouseEvent e) {
 					File file = new File("doc/levels/"+((JLabel)e.getComponent()).getText()+".lvl");
 					
-					PanneauJeuGaming pan = new PanneauJeuGaming(FabriqueSimpleWorlds.withObstacleWorldExemple1());
-					FenetreJeu.getInstance().changerPanneau(pan);
+					try {
+						WorldGrille g = (new WorldFileSerializer()).load(file);
+						
+						if(g != null){
+							PanneauJeuGaming pan = new PanneauJeuGaming(g);
+							FenetreJeu.getInstance().changerPanneau(pan);
+						}
+						
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 					
 					
 				}
