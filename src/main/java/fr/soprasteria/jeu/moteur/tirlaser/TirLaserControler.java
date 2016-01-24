@@ -12,6 +12,7 @@ import fr.soprasteria.world.laser.Laser;
 import fr.soprasteria.world.laser.LaserDirection;
 
 public class TirLaserControler {
+	private static final int NB_CALCUL_RECURSIFS_MAX = 16;
 	private WorldGrille world;
 	
 	/**
@@ -65,6 +66,15 @@ public class TirLaserControler {
 			newLasers.addAll(lasersOut);
 		}
 		return newLasers;
+	}
+	
+	public void calculTirLaserRecursif(Laser laser) {
+		List<Laser> lasers = calculTirLaser(laser);
+		int nbCalcul = 0;
+		while(!lasers.isEmpty() && nbCalcul < NB_CALCUL_RECURSIFS_MAX) {
+			lasers = calculTirLaser(lasers);
+			nbCalcul++;
+		}
 	}
 
 	private Position nextPositionDirection(Position origin, LaserDirection direction) {
