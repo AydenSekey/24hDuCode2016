@@ -1,6 +1,7 @@
 package fr.soprasteria.world;
 
 import java.awt.Color;
+import java.io.Serializable;
 
 import fr.soprasteria.world.cases.Case;
 import fr.soprasteria.world.laser.Laser;
@@ -10,7 +11,7 @@ import fr.soprasteria.world.laser.LaserTireur;
 /**
  * Personnage/joueur.
  */
-public class Personnage implements LaserTireur {
+public class Personnage implements LaserTireur, Serializable {
 	private Color couleurLaser;
 	private LaserDirection directionArme;
 	private Case caseOccupee;
@@ -116,6 +117,16 @@ public class Personnage implements LaserTireur {
 	 */
 	public void setDirectionArme(LaserDirection directionArme) {
 		this.directionArme = directionArme;
+	}
+	
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder(64);
+		builder.append("Personnage (x=").append(x);
+		builder.append(", y=").append(y);
+		builder.append(", couleurLaser=").append(couleurLaser);
+		builder.append(", directionArme=").append(directionArme).append(")");
+		return builder.toString();
 	}
 }
 
