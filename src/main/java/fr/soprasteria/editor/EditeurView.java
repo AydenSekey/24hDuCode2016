@@ -3,24 +3,28 @@ package fr.soprasteria.editor;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.imageio.ImageIO;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 
 import fr.soprasteria.jeu.FenetreJeu;
-import fr.soprasteria.jeu.PanneauJeu;
 import fr.soprasteria.jeu.PanneauJeuEditor;
 import fr.soprasteria.view.ImagesCases;
 import fr.soprasteria.world.WorldGrille;
+import fr.soprasteria.world.fabriques.FabriqueSimpleWorlds;
 
 public class EditeurView extends JPanel implements ActionListener{
 	
@@ -28,20 +32,36 @@ public class EditeurView extends JPanel implements ActionListener{
 	 * static Singleton instance
 	 */
 	private static EditeurView instance;
+	private WorldGrille grille;
 	private JSplitPane splitPane;
 	private JPanel panelWorld;
 	private JPanel toolBox;
 	private JScrollPane scrollpane1;
 	private JScrollPane scrollpane2;
-	private JButton selectButton;
 	private EditeurController editeurController;
+	private EditeurButtonCase ebc;
+	private List<ImagesCases> listCases;
 	
 	/**
 	 * Private constructor for singleton
 	 */
 	private EditeurView(){
 		
-		panelWorld = new PanneauJeuEditor();
+		listCases = new ArrayList<ImagesCases>();
+		
+		listCases.add(ImagesCases.OBSTACLE_SOLIDE);
+		//listCases.add(ImagesCases.OBSTACLE_DESTRUCTIBLE);
+		//listCases.add(ImagesCases.REFLEXION);
+		listCases.add(ImagesCases.PERSONNAGE);
+		listCases.add(ImagesCases.CIBLE);
+		//listCases.add(ImagesCases.REFRACTION);
+		//listCases.add(ImagesCases.DIFFRACTION);
+		//listCases.add(ImagesCases.DEVIATION);		
+		
+		grille = FabriqueSimpleWorlds.emptyWorld(20, 10);
+		
+		panelWorld = new PanneauJeuEditor(grille);
+				
 		toolBox=genererToolBox();		
 		toolBox.setMinimumSize(new Dimension(150,FenetreJeu.getInstance().getHeight()));
 		toolBox.setMaximumSize(new Dimension(150,FenetreJeu.getInstance().getHeight()));
@@ -86,61 +106,59 @@ public class EditeurView extends JPanel implements ActionListener{
 		JPanel outils = new JPanel();
 		BoxLayout box = new BoxLayout(outils,BoxLayout.Y_AXIS);
 		outils.setLayout(box);
-		
-		selectButton = new JButton();
-		
-		List <ImagesCases> listCases = new ArrayList<ImagesCases>();
-			
-		listCases.add(ImagesCases.OBSTACLE_SOLIDE);
-		listCases.add(ImagesCases.OBSTACLE_DESTRUCTIBLE);
-		listCases.add(ImagesCases.REFLEXION);
-		listCases.add(ImagesCases.CIBLE);
-		listCases.add(ImagesCases.REFRACTION);
-		listCases.add(ImagesCases.DIFFRACTION);
-		listCases.add(ImagesCases.DEVIATION);
-		
+		int i = 0;
 		for (ImagesCases imageCase:listCases){
 			
-			JButton image = new JButton(imageCase.getNom());
+			EditeurButtonCase JBCase = new EditeurButtonCase(imageCase);
+			JBCase.setName(imageCase.getNom());
+			try {
+				BufferedImage image = ImageIO.read(new File(imageCase.getLienImage()));
+				JBCase.setIcon(new ImageIcon(image));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
-			image.addActionListener(this);
+			JBCase.addActionListener(this);
 			
 			Dimension dim = new Dimension(100,100);
-			image.setPreferredSize(dim);
-			image.setMaximumSize(dim);
-			image.setMinimumSize(dim);
+			JBCase.setPreferredSize(dim);
+			JBCase.setMaximumSize(dim);
+			JBCase.setMinimumSize(dim);
 			
-			image.setAlignmentX(Component.CENTER_ALIGNMENT);
+			JBCase.setAlignmentX(Component.CENTER_ALIGNMENT);
 			
 			Dimension minSize = new Dimension(5, 10);
 			Dimension prefSize = new Dimension(5, 10);
 			Dimension maxSize = new Dimension(Short.MAX_VALUE, 10);
 			outils.add(new Box.Filler(minSize, prefSize, maxSize));
 			
-			outils.add(image);
+			outils.add(JBCase);
 			
+			if (i == 0) {
+				ebc = JBCase;
+				this.ebc.setEnabled(false);
+			}
+			i = i + 1;
 		}
 		
 		return outils;
-	}
-	
-	private void setSelectionBouton(JButton bouton){
-		this.selectButton=bouton;
-	}
-	
-	private JButton getSelectionBouton(){
-		return selectButton;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		
-		((Component) e.getSource()).setEnabled(false);
-		selectButton.setEnabled(true);
-		
-		this.setSelectionBouton((JButton)e.getSource());		
+		this.ebc.setEnabled(true);
+		this.ebc = (EditeurButtonCase) e.getSource();
+		this.ebc.setEnabled(false);
 	}
 	
+	public void setButtonCase(EditeurButtonCase ebc){
+		this.ebc=ebc;
+	}
 	
+	public EditeurButtonCase getButtonCase(){
+		return ebc;
+	}
 }

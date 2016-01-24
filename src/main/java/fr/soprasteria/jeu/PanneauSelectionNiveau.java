@@ -36,6 +36,7 @@ public class PanneauSelectionNiveau extends JPanel{
 		this.add(titre,BorderLayout.NORTH);
 		this.add(this.getPanneauListeNiveaux(),BorderLayout.CENTER);
 		
+		
 	}
 
 	/**
@@ -95,7 +96,9 @@ public class PanneauSelectionNiveau extends JPanel{
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					File file = new File("doc/levels/"+((JLabel)e.getComponent()).getText()+".lvl");
-					FenetreJeu.getInstance().changerPanneau(new PanneauJeuGaming(FabriqueSimpleWorlds.withObstacleWorldExemple1()));
+					
+					PanneauJeuGaming pan = new PanneauJeuGaming(FabriqueSimpleWorlds.withObstacleWorldExemple1());
+					FenetreJeu.getInstance().changerPanneau(pan);
 					
 					
 				}

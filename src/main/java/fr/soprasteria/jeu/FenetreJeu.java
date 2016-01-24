@@ -3,6 +3,8 @@ package fr.soprasteria.jeu;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.*;
 
@@ -28,7 +30,7 @@ public class FenetreJeu extends JFrame{
 	/**
 	 * Static getter method for retrieving the singleton instance
 	 */
-	public static FenetreJeu getInstance() {
+	public static synchronized FenetreJeu getInstance() {
 		if (instance == null) {
 			instance = new FenetreJeu();
 		}
