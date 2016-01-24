@@ -68,7 +68,7 @@ public class PanneauJeu extends JPanel{
 		
 		for(Personnage p: this.grille.getPersonnages())
 		{
-			((CaseView)structureCase[p.getX()][p.getY()]).afficherPersonnage();
+			((CaseView)structureCase[p.getX()][p.getY()]).afficherPersonnage(p);
 		}
 	}
 	

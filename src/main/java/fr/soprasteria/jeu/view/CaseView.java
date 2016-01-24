@@ -10,7 +10,9 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
+import fr.soprasteria.world.Personnage;
 import fr.soprasteria.world.cases.Case;
+import fr.soprasteria.world.laser.LaserDirection;
 
 public class CaseView extends JLabel{
 
@@ -32,15 +34,9 @@ public class CaseView extends JLabel{
 		return modele;
 	}	
 
-	public void afficherPersonnage()
+	public void afficherPersonnage(Personnage p)
 	{
-		try {
-			BufferedImage image = ImageIO.read(new File("src/main/resources/images/character.png"));
-			this.setIcon(new ImageIcon(image));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		changerPersonnage(p.getDirectionArme());
 	}
 	
 	public void retirerPersonnage()
@@ -56,5 +52,32 @@ public class CaseView extends JLabel{
 	public Case getModele()
 	{
 		return this.modele;
+	}
+	
+	public void changerPersonnage(LaserDirection direction)
+	{
+		String url = "src/main/resources/images/character_8.png";
+		if(direction == LaserDirection.EST){
+			url = "src/main/resources/images/character_6.png";
+		}
+		if(direction == LaserDirection.NORD_EST){
+			url = "src/main/resources/images/character_9.png";
+		}
+		if(direction == LaserDirection.NORD){
+			url = "src/main/resources/images/character_8.png";
+		}
+		if(direction == LaserDirection.NORD_OUEST){
+			url = "src/main/resources/images/character_7.png";
+		}
+		if(direction == LaserDirection.OUEST){
+			url = "src/main/resources/images/character_4.png";
+		}
+		try {
+			BufferedImage image = ImageIO.read(new File(url));
+			this.setIcon(new ImageIcon(image));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }
