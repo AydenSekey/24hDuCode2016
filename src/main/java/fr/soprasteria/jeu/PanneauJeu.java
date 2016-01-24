@@ -3,6 +3,7 @@ package fr.soprasteria.jeu;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
@@ -19,8 +20,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
+import fr.soprasteria.jeu.view.CaseView;
 import fr.soprasteria.jeu.view.CaseViewFactory;
+import fr.soprasteria.world.Personnage;
 import fr.soprasteria.world.WorldGrille;
+import fr.soprasteria.world.fabriques.FabriqueSimpleWorlds;
 
 public class PanneauJeu extends JPanel{
 	
@@ -30,33 +34,39 @@ public class PanneauJeu extends JPanel{
 	private WorldGrille grille;
 
 	public PanneauJeu(WorldGrille grille) {
+		super();
 		this.grille = grille;
 		constuire();
+		
 	}
 
 	public PanneauJeu() {
-		
+		super();
+		this.grille = FabriqueSimpleWorlds.emptyWorld(10, 5);
 	}
 
 	private void constuire()
 	{
+		
+		System.out.println(this.grille);
+		
 		int x = this.grille.getNbColonnes();
 		int y = this.grille.getNbLignes();
-		
-		this.setLayout(new GridLayout(x,y));
+		this.setBackground(Color.white);
+		this.setLayout(new GridLayout(y, x));
 		structureCase = new JComponent[x][y];
-		for (int i = 0; i < x; i++) {
-			for (int j = 0; j < y; j++) {
-				JComponent b = CaseViewFactory.getCasePourModele(grille.getCase(i,j));
-				
-				structureCase[i][j] = b;
+		for (int i = 0; i < y; i++) {
+			for (int j = 0; j < x; j++) {
+				JComponent b = CaseViewFactory.getCasePourModele(grille.getCase(j,i));
+				b.setPreferredSize(new Dimension(10, 10));
+				structureCase[j][i] = b;
+				this.add(structureCase[j][i]);
 			}
 		}
 		
-		for (int ii = 0; ii < x; ii++) {
-            for (int jj = 0; jj < y; jj++) {
-            	this.add(structureCase[ii][jj]);
-            }
+		for(Personnage p: this.grille.getPersonnages())
+		{
+			((CaseView)structureCase[p.getX()][p.getY()]).afficherPersonnage();
 		}
 	}
 	
@@ -64,5 +74,16 @@ public class PanneauJeu extends JPanel{
 //        int index = r * 8 + c;
         return this.structureCase[r][c];
     }
+	
+	@Override
+	public boolean isFocusTraversable() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+	@Override
+	public boolean isFocusable() {
+		// TODO Auto-generated method stub
+		return true;
+	}
 	
 }
