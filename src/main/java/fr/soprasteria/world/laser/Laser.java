@@ -15,6 +15,13 @@ public class Laser {
 	private Color couleur;
 	private Laser laserSource;
 	
+	/**
+	 * Crée un laser
+	 * @param origine la position (coordonnée de case) d'origine du laser
+	 * @param direction la direction du laser
+	 * @param source le laser source du laser. Mettre <code>null</code> pour le laser de départ (celui d'un tir)
+	 * @param couleur la couleur du laser
+	 */
 	public Laser(Position origine, LaserDirection direction, Laser source, Color couleur) {
 		this.couleur = couleur;
 		this.origine = origine;
@@ -22,8 +29,23 @@ public class Laser {
 		this.arret = null;
 	}
 	
+	/**
+	 * Crée un laser rouge.
+	 * @param origine la position (coordonnée de case) d'origine du laser
+	 * @param direction la direction du laser
+	 * @param source le laser source du laser. Mettre <code>null</code> pour le laser de départ (celui d'un tir)
+	 */
 	public Laser(Position origine, LaserDirection direction, Laser source) {
 		this(origine, direction, source, Color.red);
+	}
+	
+	/**
+	 * Crée un laser rouge de départ (sans source)
+	 * @param origine la position (coordonnée de case) d'origine du laser
+	 * @param direction la direction du laser
+	 */
+	public Laser(Position origine, LaserDirection direction) {
+		this(origine, direction, null, Color.red);
 	}
 	
 	/**
