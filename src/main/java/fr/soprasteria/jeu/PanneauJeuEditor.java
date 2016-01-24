@@ -14,6 +14,7 @@ import fr.soprasteria.editor.EditeurView;
 import fr.soprasteria.jeu.view.CaseView;
 import fr.soprasteria.jeu.view.CaseViewFactory;
 import fr.soprasteria.view.ImagesCases;
+import fr.soprasteria.world.Personnage;
 import fr.soprasteria.world.WorldGrille;
 import fr.soprasteria.world.cases.Case;
 import fr.soprasteria.world.cases.CaseVide;
@@ -22,6 +23,8 @@ import fr.soprasteria.world.cases.Obstacle;
 
 public class PanneauJeuEditor extends PanneauJeu implements MouseListener{
 
+	
+	private boolean uniquePers;
 	/**
 	 * Private constructor for singleton
 	 * @return 
@@ -40,16 +43,18 @@ public class PanneauJeuEditor extends PanneauJeu implements MouseListener{
 			}
 		}
 		
+		uniquePers=true;
+		
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
+		
 		if (SwingUtilities.isLeftMouseButton(e)){
 			CaseView c = (CaseView) e.getSource();
 			//EditeurView.getInstance().getButtonCase().getIc().getCase();
-			System.out.println("Col : " + c.getCase().getColonne() + " | Lig : " + c.getCase().getLigne() + " CLICKED");	
-			Case newCase;
+			Case newCase = null;
 			switch (EditeurView.getInstance().getButtonCase().getIc().getCase()){
 			
 				case "Cible" : newCase = new Cible();
@@ -57,18 +62,28 @@ public class PanneauJeuEditor extends PanneauJeu implements MouseListener{
 			
 				case "Obstacle" : newCase = new Obstacle();
 				break;
+				
+				case "Personnage" : 
+					if (uniquePers) {
+						newCase = new CaseVide();
+						Personnage pers = new Personnage(c.getCase().getLigne(), c.getCase().getColonne());
+						pers.setCaseOccupee(c.getCase());
+						uniquePers=false;
+					}
+					break;
 			
 				default : newCase = new CaseVide();
 				break;
 			
 			}	
-			//newCase = new Cible();
-
-			CaseView cv = CaseViewFactory.getCasePourModele(newCase);
-			cv.addMouseListener(this);
+			if (newCase != null) {
+				System.out.println("Col : " + c.getCase().getColonne() + " | Lig : " + c.getCase().getLigne() + " CLICKED");	
+				CaseView cv = CaseViewFactory.getCasePourModele(newCase);
+				cv.addMouseListener(this);
 			
-			this.getGrille().setCase(c.getCase().getColonne(), c.getCase().getLigne(), newCase);
-			this.setGridButton(c.getCase().getColonne(), c.getCase().getLigne(), cv);
+				this.getGrille().setCase(c.getCase().getColonne(), c.getCase().getLigne(), newCase);
+				this.setGridButton(c.getCase().getColonne(), c.getCase().getLigne(), cv);
+			}
 		}
 		else{
 			CaseView c = (CaseView) e.getSource();

@@ -16,6 +16,7 @@ public enum ImagesCases{
 	OBSTACLE_SOLIDE("Obstacle solide", "src/main/resources/images/wall.png","Obstacle"),
 //	OBSTACLE_DESTRUCTIBLE("Obstacle destructible", ""),
 //	REFLEXION("Reflexion", ""),
+	PERSONNAGE("Personnage","src/main/resources/images/character.png","Personnage"),
 	CIBLE("Cible","src/main/resources/images/target.png","Cible");
 	//REFRACTION("Refraction",""),
 	//DIFFRACTION("Diffraction",""),

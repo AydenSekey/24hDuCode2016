@@ -52,6 +52,7 @@ public class EditeurView extends JPanel implements ActionListener{
 		listCases.add(ImagesCases.OBSTACLE_SOLIDE);
 		//listCases.add(ImagesCases.OBSTACLE_DESTRUCTIBLE);
 		//listCases.add(ImagesCases.REFLEXION);
+		listCases.add(ImagesCases.PERSONNAGE);
 		listCases.add(ImagesCases.CIBLE);
 		//listCases.add(ImagesCases.REFRACTION);
 		//listCases.add(ImagesCases.DIFFRACTION);
