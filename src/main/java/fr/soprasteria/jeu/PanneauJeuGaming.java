@@ -64,6 +64,10 @@ public class PanneauJeuGaming extends PanneauJeu{
 				{
 					bougerPersonnageAGauche(0);
 				}
+				if(e.getKeyCode() == KeyEvent.VK_BACK_SPACE)
+				{
+					finirNiveau();
+				}
 			}
 		});
 	}
@@ -86,6 +90,12 @@ public class PanneauJeuGaming extends PanneauJeu{
 		CaseView caseViewVoisine = (CaseView) this.getGridButton(perso.getX()-1, perso.getY());
 		caseViewVoisine.afficherPersonnage();
 		perso.setX(perso.getX()-1);
+		perso.setCaseOccupee(caseViewVoisine.getModele());
+	}
+	
+	public void finirNiveau()
+	{
+		FenetreJeu.getInstance().changerPanneau(PanneauSelectionNiveau.getInstance());
 	}
 
 	public void dessinerLaser(JComponent element1, JComponent element2)
