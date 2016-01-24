@@ -66,7 +66,7 @@ public class PanneauJeuEditor extends PanneauJeu implements MouseListener{
 				case "Personnage" : 
 					if (uniquePers) {
 						newCase = new CaseVide();
-						pers = new Personnage(c.getCase().getLigne(), c.getCase().getColonne());
+						pers = new Personnage(c.getCase().getColonne(), c.getCase().getLigne());
 						this.getGrille().addPersonnage(pers);
 						uniquePers=false;
 					}
