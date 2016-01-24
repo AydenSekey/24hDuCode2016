@@ -15,6 +15,7 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 
+import fr.soprasteria.jeu.moteur.tirlaser.TirLaserControler;
 import fr.soprasteria.jeu.view.CaseView;
 import fr.soprasteria.world.Personnage;
 import fr.soprasteria.world.Position;
@@ -23,13 +24,15 @@ import fr.soprasteria.world.laser.Laser;
 import fr.soprasteria.world.laser.LaserDirection;
 
 public class PanneauJeuGaming extends PanneauJeu{
-
+	private TirLaserControler laserControler;
+	
 	public PanneauJeuGaming() {
 		super();
 	}
 	
 	public PanneauJeuGaming(WorldGrille grille) {
 		super(grille);
+		laserControler = new TirLaserControler(grille);
 		this.initialiserComportement();
 	}
 	
@@ -37,10 +40,6 @@ public class PanneauJeuGaming extends PanneauJeu{
 	{
 		
 		this.setFocusable(true);
-//		System.out.println("isFocusable=" + this.isFocusable());
-//		this.requestFocus();
-////		this.requestFocusInWindow();
-//		System.out.println(this.isFocusOwner());
 		
 		this.addKeyListener(new KeyAdapter() {
 			@Override
@@ -52,9 +51,14 @@ public class PanneauJeuGaming extends PanneauJeu{
 				if(e.getKeyCode() == KeyEvent.VK_LEFT)
 				{
 					bougerPersonnageAGauche(0);
-					Laser laserTest = new Laser(new Position(grille.getNbColonnes() - 1, 0), LaserDirection.SUD_OUEST);
-					laserTest.setArret(new Position(0, grille.getNbLignes() - 1));
-					dessinerLaser(laserTest);
+				}
+				if(e.getKeyCode() == KeyEvent.VK_SPACE) {
+					if(!grille.getPersonnages().isEmpty()) {
+						Personnage perso = grille.getPersonnages().get(0);
+						Laser laser = perso.tirer();
+						laserControler.calculTirLaser(laser);
+						dessinerLaser(laser);
+					}
 				}
 			}
 		});
