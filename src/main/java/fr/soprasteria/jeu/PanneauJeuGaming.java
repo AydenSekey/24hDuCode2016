@@ -99,6 +99,10 @@ public class PanneauJeuGaming extends PanneauJeu{
 	public void bougerPersonnageADroite(int persoNumero)
 	{
 		Personnage perso = this.grille.getPersonnages().get(persoNumero);
+		int t = perso.getX();
+		int  f = this.grille.getNbColonnes();
+		if (perso.getX()+1 > this.grille.getNbColonnes()){
+		}
 		CaseView caseView = (CaseView) this.getGridButton(perso.getX(), perso.getY());
 		caseView.retirerPersonnage();
 		CaseView caseViewVoisine = (CaseView) this.getGridButton(perso.getX()+1, perso.getY());
