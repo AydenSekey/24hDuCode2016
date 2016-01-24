@@ -19,7 +19,7 @@ public class Cible extends CaseLaserInteraction implements Declencheur {
 	
 	@Override
 	public void declencher() {
-		for(CibleListener listener : listeners) {
+		for(CibleListener listener : getListeners()) {
 			listener.cibleTouchee();
 		}
 	}
@@ -35,7 +35,15 @@ public class Cible extends CaseLaserInteraction implements Declencheur {
 	 * @param listener le nouvel écouteur
 	 */
 	public void addListener(CibleListener listener) {
-		listeners.add(listener);
+		getListeners().add(listener);
+	}
+	
+	protected List<CibleListener> getListeners() {
+		// nécessaire à cause de la déserialisation qui ne passe pas par le constructeur
+		if(listeners == null) {
+			listeners = new ArrayList<>();
+		}
+		return listeners;
 	}
 	
 	@Override
