@@ -3,6 +3,7 @@ package fr.soprasteria.editor;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -21,10 +22,12 @@ import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 
 import fr.soprasteria.jeu.FenetreJeu;
+import fr.soprasteria.jeu.PanneauEditeur;
 import fr.soprasteria.jeu.PanneauJeuEditor;
 import fr.soprasteria.view.ImagesCases;
 import fr.soprasteria.world.WorldGrille;
 import fr.soprasteria.world.fabriques.FabriqueSimpleWorlds;
+import fr.soprasteria.world.persistence.WorldFileSerializer;
 
 public class EditeurView extends JPanel implements ActionListener{
 	
@@ -38,7 +41,12 @@ public class EditeurView extends JPanel implements ActionListener{
 	private JPanel toolBox;
 	private JScrollPane scrollpane1;
 	private JScrollPane scrollpane2;
-	private EditeurController editeurController;
+	private JButton JSave;
+	private JButton JRetour;
+	private JButton JLoad;
+	private JButton JPlay;
+	private JPanel actionEditor;
+	private JPanel left;
 	private EditeurButtonCase ebc;
 	private List<ImagesCases> listCases;
 	
@@ -46,7 +54,7 @@ public class EditeurView extends JPanel implements ActionListener{
 	 * Private constructor for singleton
 	 */
 	private EditeurView(){
-		
+				
 		listCases = new ArrayList<ImagesCases>();
 		
 		listCases.add(ImagesCases.OBSTACLE_SOLIDE);
@@ -68,6 +76,29 @@ public class EditeurView extends JPanel implements ActionListener{
 		panelWorld.setMinimumSize(new Dimension(FenetreJeu.getInstance().getWidth(),FenetreJeu.getInstance().getHeight()));
 		
 		scrollpane1 = new JScrollPane(toolBox);
+		
+		left = new JPanel(new BorderLayout());
+		
+		actionEditor = new JPanel(new GridLayout(4,1));
+		actionEditor.setMinimumSize(new Dimension(150,150));
+		
+		JSave = new JButton("Sauvegarder");
+		JLoad = new JButton("Charger");
+		JPlay = new JButton("Jouer");
+		JRetour = new JButton("Retour");
+		JSave.addActionListener(this);
+		JLoad.addActionListener(this);
+		JPlay.addActionListener(this);
+		JRetour.addActionListener(this);
+		
+		actionEditor.add(JSave);		
+		actionEditor.add(JLoad);
+		actionEditor.add(JPlay);
+		actionEditor.add(JRetour);
+		
+		left.add(scrollpane1,BorderLayout.NORTH);
+		left.add(actionEditor,BorderLayout.SOUTH);
+		
 		scrollpane2 = new JScrollPane(panelWorld);
 		
 		scrollpane1.setMinimumSize(new Dimension(150,FenetreJeu.getInstance().getHeight()));
@@ -75,7 +106,7 @@ public class EditeurView extends JPanel implements ActionListener{
 		scrollpane2.setMinimumSize(new Dimension(FenetreJeu.getInstance().getWidth(),FenetreJeu.getInstance().getHeight()));
 		//scrollpane2.setMaximumSize(new Dimension(150,FenetreJeu.getInstance().getHeight()));
 
-		splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,scrollpane1, panelWorld);
+		splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,left, panelWorld);
 		splitPane.setOneTouchExpandable(true);
 		splitPane.setDividerLocation(150);
 		splitPane.setMinimumSize(new Dimension(FenetreJeu.getInstance().getWidth(), FenetreJeu.getInstance().getHeight()));
@@ -87,8 +118,6 @@ public class EditeurView extends JPanel implements ActionListener{
 		add(splitPane,BorderLayout.CENTER);
 		
 		setVisible(true);
-		
-		editeurController = new EditeurController();
 	}
 	
 	/**
@@ -149,9 +178,25 @@ public class EditeurView extends JPanel implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		
-		this.ebc.setEnabled(true);
-		this.ebc = (EditeurButtonCase) e.getSource();
-		this.ebc.setEnabled(false);
+		if (e.getSource() == JSave){
+			EditorSave es = new EditorSave(grille);
+		}
+		else{
+			if (e.getSource() == JLoad){
+			
+			}
+			else {
+				if (e.getSource() == JPlay){
+					EditorSave es = new EditorSave(grille,"demo.lvl");
+					EditorLoad el = new EditorLoad("demo.lvl",true);
+				}
+				else{
+					this.ebc.setEnabled(true);
+					this.ebc = (EditeurButtonCase) e.getSource();
+					this.ebc.setEnabled(false);
+				}
+			}
+		}
 	}
 	
 	public void setButtonCase(EditeurButtonCase ebc){
