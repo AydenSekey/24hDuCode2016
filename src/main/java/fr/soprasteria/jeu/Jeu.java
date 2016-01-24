@@ -1,9 +1,15 @@
 package fr.soprasteria.jeu;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JFrame;
 
 public class Jeu{
@@ -41,6 +47,7 @@ public class Jeu{
 	public void start()
 	{
 		_FENETRE.start();
+		jouerSon("militaire.wav");
 	}
 	
 	public String getNom()
@@ -68,6 +75,36 @@ public class Jeu{
 		}
 		
 		return niveaux;
+	}
+	
+	public void jouerSon(String soundName){   
+		AudioInputStream audioInputStream = null;
+		try {
+			File path = new File("doc/sons/" + soundName).getAbsoluteFile();
+			audioInputStream = AudioSystem.getAudioInputStream(path);
+		} catch (UnsupportedAudioFileException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		Clip clip = null;
+		try {
+			clip = AudioSystem.getClip();
+		} catch (LineUnavailableException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		try {
+			clip.open(audioInputStream);
+		} catch (LineUnavailableException | IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+//		clip.setLoopPoints(0,-1);
+//		clip.loop(4);
+		clip.start();
 	}
 
 }

@@ -10,7 +10,7 @@ public class CaseRedirection extends CaseLaserInteraction {
 	private LaserDirection direction;
 	
 	public CaseRedirection() {
-		this(LaserDirection.OUEST);
+		this(LaserDirection.EST);
 	}
 	
 	public CaseRedirection(LaserDirection direction) {
