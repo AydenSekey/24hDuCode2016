@@ -34,11 +34,14 @@ public class PanneauJeu extends JPanel{
 	private WorldGrille grille;
 
 	public PanneauJeu(WorldGrille grille) {
+		super();
 		this.grille = grille;
 		constuire();
+		
 	}
 
 	public PanneauJeu() {
+		super();
 		this.grille = FabriqueSimpleWorlds.emptyWorld(10, 5);
 	}
 
@@ -71,5 +74,16 @@ public class PanneauJeu extends JPanel{
 //        int index = r * 8 + c;
         return this.structureCase[r][c];
     }
+	
+	@Override
+	public boolean isFocusTraversable() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+	@Override
+	public boolean isFocusable() {
+		// TODO Auto-generated method stub
+		return true;
+	}
 	
 }
