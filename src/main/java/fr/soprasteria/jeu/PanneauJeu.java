@@ -15,12 +15,14 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+import javax.swing.border.Border;
 
 import fr.soprasteria.jeu.view.CaseView;
 import fr.soprasteria.jeu.view.CaseViewFactory;
@@ -38,8 +40,7 @@ public class PanneauJeu extends JPanel{
 	public PanneauJeu(WorldGrille grille) {
 		super();
 		this.grille = grille;
-		constuire();
-		
+		construire();
 	}
 
 	public PanneauJeu() {
@@ -47,7 +48,7 @@ public class PanneauJeu extends JPanel{
 		this.grille = FabriqueSimpleWorlds.emptyWorld(10, 5);
 	}
 
-	private void constuire()
+	private void construire()
 	{
 //		System.out.println(this.grille);
 		
@@ -75,10 +76,43 @@ public class PanneauJeu extends JPanel{
 	{
 		return null;
 	}
-	
-	protected JComponent getGridButton(int r, int c) {
+
+	protected JComponent getGridButton(int col, int lig) {
 //        int index = r * 8 + c;
-        return this.structureCase[r][c];
+        return this.structureCase[col][lig];
     }
+	
+	protected void setGridButton(int col, int lig,CaseView cv) {
+//      int index = r * 8 + c;
+	  JComponent compOld = this.structureCase[col][lig];
+	  
+	  int order = this.getComponentZOrder(compOld);	  
+	  this.remove(compOld);
+	  Object blackline = BorderFactory.createLineBorder(Color.black);
+	  cv.setOpaque(true);
+	  cv.setBackground(Color.WHITE);
+	  cv.setBorder((Border) blackline);
+	  
+      this.structureCase[col][lig] = cv;
+      this.add(structureCase[col][lig],order);
+  }
+
+	protected WorldGrille getGrille(){
+		return grille;
+	}
+	
+	protected JComponent[][] getStructureCase(){
+		return structureCase;
+	}
+	@Override
+	public boolean isFocusTraversable() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+	@Override
+	public boolean isFocusable() {
+		// TODO Auto-generated method stub
+		return true;
+	}
 	
 }

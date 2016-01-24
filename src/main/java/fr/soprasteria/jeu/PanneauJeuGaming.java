@@ -29,6 +29,7 @@ import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
 
+import fr.soprasteria.jeu.view.CaseView;
 import fr.soprasteria.world.Personnage;
 import fr.soprasteria.world.WorldGrille;
 
@@ -70,12 +71,21 @@ public class PanneauJeuGaming extends PanneauJeu{
 	public void bougerPersonnageADroite(int persoNumero)
 	{
 		Personnage perso = this.grille.getPersonnages().get(persoNumero);
-		
+		CaseView caseView = (CaseView) this.getGridButton(perso.getX(), perso.getY());
+		caseView.retirerPersonnage();
+		CaseView caseViewVoisine = (CaseView) this.getGridButton(perso.getX()+1, perso.getY());
+		caseViewVoisine.afficherPersonnage();
+		perso.setX(perso.getX()+1);
 	}
 	
 	public void bougerPersonnageAGauche(int persoNumero)
 	{
-		
+		Personnage perso = this.grille.getPersonnages().get(persoNumero);
+		CaseView caseView = (CaseView) this.getGridButton(perso.getX(), perso.getY());
+		caseView.retirerPersonnage();
+		CaseView caseViewVoisine = (CaseView) this.getGridButton(perso.getX()-1, perso.getY());
+		caseViewVoisine.afficherPersonnage();
+		perso.setX(perso.getX()-1);
 	}
 
 	public void dessinerLaser(JComponent element1, JComponent element2)

@@ -1,5 +1,8 @@
 package fr.soprasteria.world.cases;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import fr.soprasteria.world.laser.Laser;
 
 /**
@@ -9,10 +12,12 @@ public class Obstacle extends CaseLaserInteraction {
 
 	/**
 	 * Lorsqu'un obstacle réceptionne un laser il l'absorbe et ne fait rien.
+	 * @return 
 	 */
 	@Override
-	public void reception(Laser laser) {
+	public List<Laser> reception(Laser laser) {
 		// Ne rien faire
+		return new ArrayList<Laser>();
 	}
 
 	@Override

@@ -28,6 +28,10 @@ public class CaseView extends JLabel{
 		});
 	}
 	
+	public Case getCase(){
+		return modele;
+	}	
+
 	public void afficherPersonnage()
 	{
 		try {
@@ -46,7 +50,7 @@ public class CaseView extends JLabel{
 	
 	public void afficherSaVraiNature() 
 	{
-		
+		this.setIcon(null);
 	}
 	
 	public Case getModele()

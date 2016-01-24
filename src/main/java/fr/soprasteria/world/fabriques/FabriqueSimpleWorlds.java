@@ -23,13 +23,12 @@ public final class FabriqueSimpleWorlds {
 	 */
 	public static WorldGrille emptyWorld(int nbCols, int nbLis, int colCible, int liCible) {
 		WorldGrille world = new WorldGrille(nbCols, nbLis);
-		CaseVide caseVide = new CaseVide();
 		for(int col = 0; col < nbCols; col++) {
 			for(int li = 0; li < nbLis; li++) {
 				if(li == liCible && col == colCible) {
 					world.setCase(col, li, new Cible());
 				} else {
-					world.setCase(col, li, caseVide);
+					world.setCase(col, li, new CaseVide());
 				}
 			}
 		}
@@ -45,10 +44,9 @@ public final class FabriqueSimpleWorlds {
 	 */
 	public static WorldGrille emptyWorld(int nbCols, int nbLis) {
 		WorldGrille world = new WorldGrille(nbCols, nbLis);
-		CaseVide caseVide = new CaseVide();
 		for(int col = 0; col < nbCols; col++) {
 			for(int li = 0; li < nbLis; li++) {
-					world.setCase(col, li, caseVide);
+					world.setCase(col, li, new CaseVide());
 			}
 		}
 		return world;
