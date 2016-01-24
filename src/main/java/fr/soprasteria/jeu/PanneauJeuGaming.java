@@ -1,33 +1,19 @@
 package fr.soprasteria.jeu;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.GridLayout;
 import java.awt.Point;
 import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.image.BufferedImage;
 
-import javax.swing.AbstractAction;
-import javax.swing.ImageIcon;
-import javax.swing.InputMap;
 import javax.swing.JButton;
 import javax.swing.JComponent;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.KeyStroke;
-import javax.swing.SwingUtilities;
 
 import fr.soprasteria.jeu.view.CaseView;
 import fr.soprasteria.world.Personnage;
@@ -128,14 +114,14 @@ public class PanneauJeuGaming extends PanneauJeu{
 		Position origine = laser.getOrigine();
 		Position arret = laser.getArret();
 		JComponent c = getGridButton(origine.getX(), origine.getY());
-		Point pSrc = c.getLocation();
+		Point pSrc = middleLocation(c);
 		Point pCible;
 		if(arret == null) {
 			// Laser non interrompu -> doit atteindre le bord de l'écran
-			pCible = determinerBordPan(c.getLocation(), laser.getDirection());
+			pCible = determinerBordPan(pSrc, laser.getDirection());
 		} else {
 			// Laser interrompu par une case
-			pCible = getGridButton(arret.getX(), arret.getY()).getLocation();
+			pCible = middleLocation(getGridButton(arret.getX(), arret.getY()));
 		}
 		dessinerLaser(pSrc, pCible, laser.getCouleur());
 	}
@@ -195,4 +181,18 @@ public class PanneauJeuGaming extends PanneauJeu{
 		return bordPoint;
 	}
 	
+	/**
+	 * Donne la position du centre d'un composant par rappord au coin supérieur gauche de son parent.
+	 * @param component le composant pour lequel on veut la position du centre
+	 * @return la position du centre du composant.
+	 */
+	private Point middleLocation(JComponent component) {
+		Point pos = component.getLocation();
+		int witdh = component.getWidth();
+		int height = component.getHeight();
+		int midX = (int) pos.getX() + witdh / 2;
+		int midY = (int) pos.getY() + height / 2;
+				
+		return new Point(midX, midY);
+	}
 }
