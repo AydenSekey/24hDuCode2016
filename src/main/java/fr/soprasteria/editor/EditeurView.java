@@ -24,7 +24,6 @@ import fr.soprasteria.jeu.FenetreJeu;
 import fr.soprasteria.jeu.PanneauJeuEditor;
 import fr.soprasteria.view.ImagesCases;
 import fr.soprasteria.world.WorldGrille;
-import fr.soprasteria.world.cases.Case;
 import fr.soprasteria.world.fabriques.FabriqueSimpleWorlds;
 
 public class EditeurView extends JPanel implements ActionListener{
@@ -40,6 +39,7 @@ public class EditeurView extends JPanel implements ActionListener{
 	private JScrollPane scrollpane1;
 	private JScrollPane scrollpane2;
 	private EditeurController editeurController;
+	private EditeurButtonCase ebc;
 	private List<ImagesCases> listCases;
 	
 	/**
@@ -55,7 +55,7 @@ public class EditeurView extends JPanel implements ActionListener{
 		listCases.add(ImagesCases.CIBLE);
 		//listCases.add(ImagesCases.REFRACTION);
 		//listCases.add(ImagesCases.DIFFRACTION);
-		//listCases.add(ImagesCases.DEVIATION);
+		//listCases.add(ImagesCases.DEVIATION);		
 		
 		grille = FabriqueSimpleWorlds.emptyWorld(20, 10);
 		
@@ -105,44 +105,59 @@ public class EditeurView extends JPanel implements ActionListener{
 		JPanel outils = new JPanel();
 		BoxLayout box = new BoxLayout(outils,BoxLayout.Y_AXIS);
 		outils.setLayout(box);
-		
-		int i = 1;
+		int i = 0;
 		for (ImagesCases imageCase:listCases){
 			
-			JButton JBImage = new JButton();
-			JBImage.setName(""+i);
+			EditeurButtonCase JBCase = new EditeurButtonCase(imageCase);
+			JBCase.setName(imageCase.getNom());
 			try {
 				BufferedImage image = ImageIO.read(new File(imageCase.getLienImage()));
-				JBImage.setIcon(new ImageIcon(image));
+				JBCase.setIcon(new ImageIcon(image));
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
-			JBImage.addActionListener(this);
+			JBCase.addActionListener(this);
 			
 			Dimension dim = new Dimension(100,100);
-			JBImage.setPreferredSize(dim);
-			JBImage.setMaximumSize(dim);
-			JBImage.setMinimumSize(dim);
+			JBCase.setPreferredSize(dim);
+			JBCase.setMaximumSize(dim);
+			JBCase.setMinimumSize(dim);
 			
-			JBImage.setAlignmentX(Component.CENTER_ALIGNMENT);
+			JBCase.setAlignmentX(Component.CENTER_ALIGNMENT);
 			
 			Dimension minSize = new Dimension(5, 10);
 			Dimension prefSize = new Dimension(5, 10);
 			Dimension maxSize = new Dimension(Short.MAX_VALUE, 10);
 			outils.add(new Box.Filler(minSize, prefSize, maxSize));
 			
-			outils.add(JBImage);
-			i = i +1;
+			outils.add(JBCase);
+			
+			if (i == 0) {
+				ebc = JBCase;
+				this.ebc.setEnabled(false);
+			}
+			i = i + 1;
 		}
 		
 		return outils;
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent arg0) {
+	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		
-	}	
+		this.ebc.setEnabled(true);
+		this.ebc = (EditeurButtonCase) e.getSource();
+		this.ebc.setEnabled(false);
+	}
+	
+	public void setButtonCase(EditeurButtonCase ebc){
+		this.ebc=ebc;
+	}
+	
+	public EditeurButtonCase getButtonCase(){
+		return ebc;
+	}
 }

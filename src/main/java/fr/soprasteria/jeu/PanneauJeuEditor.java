@@ -45,13 +45,25 @@ public class PanneauJeuEditor extends PanneauJeu implements MouseListener{
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
-		Case newCase = null;
-		CaseView c = (CaseView) e.getSource();
 		if (SwingUtilities.isLeftMouseButton(e)){
-		//System.out.println("Col : " + c.getCase().getColonne() + " | Lig : " + c.getCase().getLigne() + " CLICKED");	
+			CaseView c = (CaseView) e.getSource();
+			//EditeurView.getInstance().getButtonCase().getIc().getCase();
+			System.out.println("Col : " + c.getCase().getColonne() + " | Lig : " + c.getCase().getLigne() + " CLICKED");	
+			Case newCase;
+			switch (EditeurView.getInstance().getButtonCase().getIc().getCase()){
 			
-			newCase = new CaseVide();
+				case "Cible" : newCase = new Cible();
+				break;
 			
+				case "Obstacle" : newCase = new Obstacle();
+				break;
+			
+				default : newCase = new CaseVide();
+				break;
+			
+			}	
+			//newCase = new Cible();
+
 			CaseView cv = CaseViewFactory.getCasePourModele(newCase);
 			cv.addMouseListener(this);
 			
@@ -59,12 +71,15 @@ public class PanneauJeuEditor extends PanneauJeu implements MouseListener{
 			this.setGridButton(c.getCase().getColonne(), c.getCase().getLigne(), cv);
 		}
 		else{
-			newCase = new CaseVide();
-			this.getGrille().setCase(c.getCase().getColonne(), c.getCase().getLigne(), newCase);
+			CaseView c = (CaseView) e.getSource();
+			System.out.println("Col : " + c.getCase().getColonne() + " | Lig : " + c.getCase().getLigne() + " CLICKED");	
+
+			Case newCase = new CaseVide();
 			
 			CaseView cv = CaseViewFactory.getCasePourModele(newCase);
 			cv.addMouseListener(this);
 			
+			this.getGrille().setCase(c.getCase().getColonne(), c.getCase().getLigne(), newCase);
 			this.setGridButton(c.getCase().getColonne(), c.getCase().getLigne(), cv);
 		}
 		
@@ -74,8 +89,7 @@ public class PanneauJeuEditor extends PanneauJeu implements MouseListener{
 			for(int j=0;j<this.getGrille().getNbLignes();j++){
 				System.out.println(i + " " + j + " " +this.getGrille().getCase(i, j).getClass().getName());
 			}
-		}*/
-				
+		}*/				
 		//EditeurView.getInstance().updatePanelWorld(new PanneauJeuEditor(this.getGrille));
 	}
 
