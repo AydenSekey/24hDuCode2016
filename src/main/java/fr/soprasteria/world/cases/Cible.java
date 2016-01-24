@@ -1,5 +1,8 @@
 package fr.soprasteria.world.cases;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import fr.soprasteria.world.Declencheur;
 import fr.soprasteria.world.laser.Laser;
 
@@ -14,8 +17,9 @@ public class Cible extends CaseLaserInteraction implements Declencheur {
 	}
 
 	@Override
-	public void reception(Laser laser) {
+	public List<Laser> reception(Laser laser) {
 		declencher();
+		return new ArrayList<Laser>();
 	}
 
 	@Override
