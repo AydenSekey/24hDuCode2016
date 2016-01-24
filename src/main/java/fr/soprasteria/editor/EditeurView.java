@@ -176,11 +176,11 @@ public class EditeurView extends JPanel implements ActionListener{
 		// TODO Auto-generated method stub
 		
 		if (e.getSource() == JSave){
-			EditorSave es = new EditorSave(grille);
+			EditorSave es = new EditorSave(grille,panelWorld);
 		}
 		else{
 			if (e.getSource() == JPlay){
-				EditorSave es = new EditorSave(grille,"demo.lvl");
+				EditorSave es = new EditorSave(grille,panelWorld,"demo");
 				EditorLoad el = new EditorLoad("demo.lvl",true);
 					
 				PanneauJeuGaming pan = new PanneauJeuGaming(el.getGrille());

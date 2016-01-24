@@ -3,9 +3,10 @@ package fr.soprasteria.jeu;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Graphics2D;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -24,7 +25,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import fr.soprasteria.editor.EditeurView;
-import fr.soprasteria.world.WorldGrille;
 
 public class PanneauEditeur extends JPanel implements MouseListener,ActionListener{
 	
@@ -78,7 +78,16 @@ public class PanneauEditeur extends JPanel implements MouseListener,ActionListen
 			
 			panel.setLayout(new BorderLayout());	
 			if (i<list_world.size()){
-				 bu.setText(list_world.get(i));
+				 bu.setText("");
+				 try {					 
+					 	BufferedImage image = ImageIO.read(new File("doc/levels/editor_levels/"+list_world.get(i)+".png"));
+					 	image = resize(image, 350, 150);
+					 	bu.setIcon(new ImageIcon(image));
+						
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}				 
 				 la.setText(list_world.get(i));
 			}
 			panel.add(bu,BorderLayout.CENTER);
@@ -179,4 +188,15 @@ public class PanneauEditeur extends JPanel implements MouseListener,ActionListen
 			FenetreJeu.getInstance().changerPanneau(EditeurView.getInstance());
 		}
 	}
+	
+	public static BufferedImage resize(BufferedImage img, int newW, int newH) { 
+	    Image tmp = img.getScaledInstance(newW, newH, Image.SCALE_SMOOTH);
+	    BufferedImage dimg = new BufferedImage(newW, newH, BufferedImage.TYPE_INT_ARGB);
+
+	    Graphics2D g2d = dimg.createGraphics();
+	    g2d.drawImage(tmp, 0, 0, null);
+	    g2d.dispose();
+
+	    return dimg;
+	}  
 }
