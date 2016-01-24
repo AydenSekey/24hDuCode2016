@@ -1,6 +1,5 @@
-package fr.soprasteria.jeu.moteur.tirlaser;
+package fr.soprasteria.world.laser;
 
-import fr.soprasteria.world.laser.Laser;
 
 /**
  * Interface pour les objets tirant des lasers.
