@@ -14,6 +14,7 @@ public class Cible extends CaseLaserInteraction implements Declencheur {
 	@Override
 	public void declencher() {
 		// TODO Success Level
+		System.out.println("SUCCESS !");
 	}
 
 	@Override

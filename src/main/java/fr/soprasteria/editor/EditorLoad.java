@@ -15,12 +15,13 @@ public class EditorLoad {
 	
 	private WorldFileSerializer wfs;
 	private File wordFile;
+	private WorldGrille grille;
 	
 	public EditorLoad(String file)
 	{
 		wfs = new WorldFileSerializer();		
 		try {
-			wfs.load(new File (file));
+			grille = wfs.load(new File (file));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -31,11 +32,15 @@ public class EditorLoad {
 	{
 		wfs = new WorldFileSerializer();		
 		try {
-			wfs.load(new File("doc/levels/editor_levels/"+demo));
+			grille = wfs.load(new File("doc/levels/editor_levels/"+demo));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}	
+	}
 	
+	public WorldGrille getGrille()
+	{
+		return grille;
+	}
 }

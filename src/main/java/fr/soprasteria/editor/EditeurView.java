@@ -24,6 +24,7 @@ import javax.swing.JSplitPane;
 import fr.soprasteria.jeu.FenetreJeu;
 import fr.soprasteria.jeu.PanneauEditeur;
 import fr.soprasteria.jeu.PanneauJeuEditor;
+import fr.soprasteria.jeu.PanneauJeuGaming;
 import fr.soprasteria.view.ImagesCases;
 import fr.soprasteria.world.WorldGrille;
 import fr.soprasteria.world.fabriques.FabriqueSimpleWorlds;
@@ -43,7 +44,6 @@ public class EditeurView extends JPanel implements ActionListener{
 	private JScrollPane scrollpane2;
 	private JButton JSave;
 	private JButton JRetour;
-	private JButton JLoad;
 	private JButton JPlay;
 	private JPanel actionEditor;
 	private JPanel left;
@@ -83,16 +83,13 @@ public class EditeurView extends JPanel implements ActionListener{
 		actionEditor.setMinimumSize(new Dimension(150,150));
 		
 		JSave = new JButton("Sauvegarder");
-		JLoad = new JButton("Charger");
 		JPlay = new JButton("Jouer");
 		JRetour = new JButton("Retour");
 		JSave.addActionListener(this);
-		JLoad.addActionListener(this);
 		JPlay.addActionListener(this);
 		JRetour.addActionListener(this);
 		
 		actionEditor.add(JSave);		
-		actionEditor.add(JLoad);
 		actionEditor.add(JPlay);
 		actionEditor.add(JRetour);
 		
@@ -182,19 +179,17 @@ public class EditeurView extends JPanel implements ActionListener{
 			EditorSave es = new EditorSave(grille);
 		}
 		else{
-			if (e.getSource() == JLoad){
-			
+			if (e.getSource() == JPlay){
+				EditorSave es = new EditorSave(grille,"demo.lvl");
+				EditorLoad el = new EditorLoad("demo.lvl",true);
+					
+				PanneauJeuGaming pan = new PanneauJeuGaming(el.getGrille());
+				FenetreJeu.getInstance().changerPanneau(pan);	
 			}
-			else {
-				if (e.getSource() == JPlay){
-					EditorSave es = new EditorSave(grille,"demo.lvl");
-					EditorLoad el = new EditorLoad("demo.lvl",true);
-				}
-				else{
-					this.ebc.setEnabled(true);
-					this.ebc = (EditeurButtonCase) e.getSource();
-					this.ebc.setEnabled(false);
-				}
+			else{
+				this.ebc.setEnabled(true);
+				this.ebc = (EditeurButtonCase) e.getSource();
+				this.ebc.setEnabled(false);
 			}
 		}
 	}

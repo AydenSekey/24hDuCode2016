@@ -49,6 +49,10 @@ public class PanneauJeuGaming extends PanneauJeu{
 					bougerPersonnageAGauche(0);
 					repaint();
 				}
+				if(e.getKeyCode() == KeyEvent.VK_BACK_SPACE)
+				{
+					finirNiveau();
+				}
 				if(e.getKeyCode() == KeyEvent.VK_SPACE) {
 					if(!grille.getPersonnages().isEmpty()) {
 						Personnage perso = grille.getPersonnages().get(0);
@@ -56,6 +60,37 @@ public class PanneauJeuGaming extends PanneauJeu{
 						laserControler.calculTirLaser(laser);
 						dessinerLaser(laser);
 					}
+				}
+				if(e.getKeyCode() == KeyEvent.VK_NUMPAD4) {
+					Personnage perso = grille.getPersonnages().get(0);
+					perso.setDirectionArme(LaserDirection.OUEST);
+					CaseView caseView = (CaseView) getGridButton(perso.getX(), perso.getY());
+					caseView.changerPersonnage(LaserDirection.OUEST);
+				}
+				if(e.getKeyCode() == KeyEvent.VK_NUMPAD7) {
+					Personnage perso = grille.getPersonnages().get(0);
+					perso.setDirectionArme(LaserDirection.NORD_OUEST);
+					CaseView caseView = (CaseView) getGridButton(perso.getX(), perso.getY());
+					caseView.changerPersonnage(LaserDirection.NORD_OUEST);	
+				}
+				if(e.getKeyCode() == KeyEvent.VK_NUMPAD8) {
+					Personnage perso = grille.getPersonnages().get(0);
+					perso.setDirectionArme(LaserDirection.NORD);
+					CaseView caseView = (CaseView) getGridButton(perso.getX(), perso.getY());
+					caseView.changerPersonnage(LaserDirection.NORD);
+				}
+				if(e.getKeyCode() == KeyEvent.VK_NUMPAD9) {
+					Personnage perso = grille.getPersonnages().get(0);
+					perso.setDirectionArme(LaserDirection.NORD_EST);
+					CaseView caseView = (CaseView) getGridButton(perso.getX(), perso.getY());
+					caseView.changerPersonnage(LaserDirection.NORD_EST);
+				}
+				if(e.getKeyCode() == KeyEvent.VK_NUMPAD6) {
+					System.out.println("s");
+					Personnage perso = grille.getPersonnages().get(0);
+					perso.setDirectionArme(LaserDirection.EST);
+					CaseView caseView = (CaseView) getGridButton(perso.getX(), perso.getY());
+					caseView.changerPersonnage(LaserDirection.EST);
 				}
 			}
 		});
@@ -67,7 +102,7 @@ public class PanneauJeuGaming extends PanneauJeu{
 		CaseView caseView = (CaseView) this.getGridButton(perso.getX(), perso.getY());
 		caseView.retirerPersonnage();
 		CaseView caseViewVoisine = (CaseView) this.getGridButton(perso.getX()+1, perso.getY());
-		caseViewVoisine.afficherPersonnage();
+		caseViewVoisine.afficherPersonnage(perso);
 		perso.setX(perso.getX()+1);
 	}
 	
@@ -77,8 +112,14 @@ public class PanneauJeuGaming extends PanneauJeu{
 		CaseView caseView = (CaseView) this.getGridButton(perso.getX(), perso.getY());
 		caseView.retirerPersonnage();
 		CaseView caseViewVoisine = (CaseView) this.getGridButton(perso.getX()-1, perso.getY());
-		caseViewVoisine.afficherPersonnage();
+		caseViewVoisine.afficherPersonnage(perso);
 		perso.setX(perso.getX()-1);
+		perso.setCaseOccupee(caseViewVoisine.getModele());
+	}
+	
+	public void finirNiveau()
+	{
+		FenetreJeu.getInstance().changerPanneau(PanneauSelectionNiveau.getInstance());
 	}
 
 	public void dessinerLaser(Point pointSrc, Point pointCible, Color couleur)
