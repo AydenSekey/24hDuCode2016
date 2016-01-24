@@ -85,7 +85,8 @@ public class PanneauJeuEditor extends PanneauJeu implements MouseListener{
 				this.setGridButton(c.getCase().getColonne(), c.getCase().getLigne(), cv);
 				
 				if (EditeurView.getInstance().getButtonCase().getIc().getCase() == "Personnage" ){
-					cv.afficherPersonnage();
+					if(pers != null)
+						cv.afficherPersonnage(pers);
 				}
 			}
 		}
