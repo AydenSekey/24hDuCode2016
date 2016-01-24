@@ -10,17 +10,26 @@ import java.awt.Point;
 import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 
+import javax.swing.AbstractAction;
 import javax.swing.ImageIcon;
+import javax.swing.InputMap;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
+
+import fr.soprasteria.world.WorldGrille;
 
 public class PanneauJeuGaming extends PanneauJeu{
 
+	protected static InputMap inputMap;
+	
 	/**
 	 * Private constructor for singleton
 	 * @return 
@@ -29,6 +38,16 @@ public class PanneauJeuGaming extends PanneauJeu{
 		super();
 	}
 	
+	public PanneauJeuGaming(WorldGrille grille) {
+		super(grille);
+		initialiserComportement();
+	}
+	
+	public void initialiserComportement()
+	{
+		
+	}
+
 	public void dessinerLaser(JComponent element1, JComponent element2)
 	{
 		Graphics g = this.getGraphics();
@@ -72,5 +91,7 @@ public class PanneauJeuGaming extends PanneauJeu{
 		
 		return this;
 	}
+
+
 	
 }

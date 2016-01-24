@@ -1,6 +1,7 @@
 package fr.soprasteria.world;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 import fr.soprasteria.world.cases.Case;
 import fr.soprasteria.world.exceptions.ConstructionWorldGrilleException;
@@ -15,6 +16,7 @@ public class WorldGrille implements Serializable {
 	private final int nbColonnes;
 	private final Case[] grille;
 	private String nom;
+	private ArrayList<Personnage> personnages = new ArrayList<>();
 
 	/**
 	 * Crée un labyrinthe.
@@ -95,6 +97,14 @@ public class WorldGrille implements Serializable {
 	
 	public void setNom(String nom){
 		this.nom=nom;
+	}
+	
+	public void addPersonnage(Personnage p){
+		this.personnages.add(p);
+	}
+	
+	public ArrayList<Personnage> getPersonnages(){
+		return this.personnages;
 	}
 	
 	/**

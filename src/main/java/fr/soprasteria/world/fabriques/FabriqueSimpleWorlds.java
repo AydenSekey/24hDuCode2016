@@ -1,5 +1,8 @@
 package fr.soprasteria.world.fabriques;
 
+import java.awt.Color;
+
+import fr.soprasteria.world.Personnage;
 import fr.soprasteria.world.WorldGrille;
 import fr.soprasteria.world.cases.CaseVide;
 import fr.soprasteria.world.cases.Cible;
@@ -56,14 +59,19 @@ public final class FabriqueSimpleWorlds {
 	public static WorldGrille withObstacleWorldExemple1() {
 		int nbCols = 10;
 		int nbLis = 5;
-		int colCible = 1;
-		int liCible = 2;
+		int colCible = 5;
+		int liCible = 0;
 		WorldGrille world = emptyWorld(nbCols, nbLis, colCible, liCible);
 		
-		world.setCase(2, 0, new Obstacle());
-		world.setCase(2, 1, new Obstacle());
-		world.setCase(2, 2, new Obstacle());
-		world.setCase(3, 2, new Obstacle());	
+		world.setCase(3, 0, new Obstacle());
+		world.setCase(3, 1, new Obstacle());
+		world.setCase(3, 2, new Obstacle());
+		world.setCase(4, 2, new Obstacle());
+		world.setCase(5, 2, new Obstacle());
+		world.setCase(6, 2, new Obstacle());
+		
+		world.addPersonnage(new Personnage(0, 4, Color.red));
+		
 		
 		return world;
 	}
