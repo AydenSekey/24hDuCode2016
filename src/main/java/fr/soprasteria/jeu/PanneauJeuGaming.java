@@ -9,6 +9,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -79,8 +80,11 @@ public class PanneauJeuGaming extends PanneauJeu implements CibleListener {
 					if(!grille.getPersonnages().isEmpty()) {
 						Personnage perso = grille.getPersonnages().get(0);
 						Laser laser = perso.tirer();
-						laserControler.calculTirLaserRecursif(laser);
+						List<Laser> lasers = laserControler.calculTirLaserRecursif(laser);
 						dessinerLaser(laser);
+						for(Laser las : lasers) {
+							dessinerLaser(las);
+						}
 						jouerSon("shoot.wav");
 					}
 				}
@@ -153,27 +157,19 @@ public class PanneauJeuGaming extends PanneauJeu implements CibleListener {
 	
 	public void jouerSon(String soundName){   
 		AudioInputStream audioInputStream = null;
+		File fileAudio = new File("doc/sons/" + soundName);
 		try {
-			File path = new File("doc/sons/" + soundName).getAbsoluteFile();
+			File path = fileAudio.getAbsoluteFile();
 			audioInputStream = AudioSystem.getAudioInputStream(path);
-		} catch (UnsupportedAudioFileException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
+		} catch (UnsupportedAudioFileException | IOException e1) {
 			e1.printStackTrace();
 		}
 		Clip clip = null;
 		try {
 			clip = AudioSystem.getClip();
-		} catch (LineUnavailableException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		try {
 			clip.open(audioInputStream);
 		} catch (LineUnavailableException | IOException e1) {
-			// TODO Auto-generated catch block
+			System.err.println("Problème de lecture du fichier " + fileAudio.getAbsolutePath());
 			e1.printStackTrace();
 		}
 		clip.start();
