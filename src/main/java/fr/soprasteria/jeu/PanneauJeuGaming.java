@@ -1,19 +1,14 @@
 package fr.soprasteria.jeu;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.RenderingHints;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-import javax.swing.JButton;
 import javax.swing.JComponent;
-import javax.swing.JPanel;
 
 import fr.soprasteria.jeu.moteur.tirlaser.TirLaserControler;
 import fr.soprasteria.jeu.view.CaseView;
@@ -47,10 +42,16 @@ public class PanneauJeuGaming extends PanneauJeu{
 				if(e.getKeyCode() == KeyEvent.VK_RIGHT)
 				{
 					bougerPersonnageADroite(0);
+					repaint();
 				}
 				if(e.getKeyCode() == KeyEvent.VK_LEFT)
 				{
 					bougerPersonnageAGauche(0);
+					repaint();
+				}
+				if(e.getKeyCode() == KeyEvent.VK_BACK_SPACE)
+				{
+					finirNiveau();
 				}
 				if(e.getKeyCode() == KeyEvent.VK_SPACE) {
 					if(!grille.getPersonnages().isEmpty()) {
@@ -59,6 +60,37 @@ public class PanneauJeuGaming extends PanneauJeu{
 						laserControler.calculTirLaser(laser);
 						dessinerLaser(laser);
 					}
+				}
+				if(e.getKeyCode() == KeyEvent.VK_NUMPAD4) {
+					Personnage perso = grille.getPersonnages().get(0);
+					perso.setDirectionArme(LaserDirection.OUEST);
+					CaseView caseView = (CaseView) getGridButton(perso.getX(), perso.getY());
+					caseView.changerPersonnage(LaserDirection.OUEST);
+				}
+				if(e.getKeyCode() == KeyEvent.VK_NUMPAD7) {
+					Personnage perso = grille.getPersonnages().get(0);
+					perso.setDirectionArme(LaserDirection.NORD_OUEST);
+					CaseView caseView = (CaseView) getGridButton(perso.getX(), perso.getY());
+					caseView.changerPersonnage(LaserDirection.NORD_OUEST);	
+				}
+				if(e.getKeyCode() == KeyEvent.VK_NUMPAD8) {
+					Personnage perso = grille.getPersonnages().get(0);
+					perso.setDirectionArme(LaserDirection.NORD);
+					CaseView caseView = (CaseView) getGridButton(perso.getX(), perso.getY());
+					caseView.changerPersonnage(LaserDirection.NORD);
+				}
+				if(e.getKeyCode() == KeyEvent.VK_NUMPAD9) {
+					Personnage perso = grille.getPersonnages().get(0);
+					perso.setDirectionArme(LaserDirection.NORD_EST);
+					CaseView caseView = (CaseView) getGridButton(perso.getX(), perso.getY());
+					caseView.changerPersonnage(LaserDirection.NORD_EST);
+				}
+				if(e.getKeyCode() == KeyEvent.VK_NUMPAD6) {
+					System.out.println("s");
+					Personnage perso = grille.getPersonnages().get(0);
+					perso.setDirectionArme(LaserDirection.EST);
+					CaseView caseView = (CaseView) getGridButton(perso.getX(), perso.getY());
+					caseView.changerPersonnage(LaserDirection.EST);
 				}
 			}
 		});
@@ -70,7 +102,7 @@ public class PanneauJeuGaming extends PanneauJeu{
 		CaseView caseView = (CaseView) this.getGridButton(perso.getX(), perso.getY());
 		caseView.retirerPersonnage();
 		CaseView caseViewVoisine = (CaseView) this.getGridButton(perso.getX()+1, perso.getY());
-		caseViewVoisine.afficherPersonnage();
+		caseViewVoisine.afficherPersonnage(perso);
 		perso.setX(perso.getX()+1);
 	}
 	
@@ -80,8 +112,14 @@ public class PanneauJeuGaming extends PanneauJeu{
 		CaseView caseView = (CaseView) this.getGridButton(perso.getX(), perso.getY());
 		caseView.retirerPersonnage();
 		CaseView caseViewVoisine = (CaseView) this.getGridButton(perso.getX()-1, perso.getY());
-		caseViewVoisine.afficherPersonnage();
+		caseViewVoisine.afficherPersonnage(perso);
 		perso.setX(perso.getX()-1);
+		perso.setCaseOccupee(caseViewVoisine.getModele());
+	}
+	
+	public void finirNiveau()
+	{
+		FenetreJeu.getInstance().changerPanneau(PanneauSelectionNiveau.getInstance());
 	}
 
 	public void dessinerLaser(Point pointSrc, Point pointCible, Color couleur)
@@ -92,27 +130,6 @@ public class PanneauJeuGaming extends PanneauJeu{
         g2d.setPaint (couleur);
 		g2d.drawLine((int)pointSrc.getX(), (int)pointSrc.getY(), (int)pointCible.getX(), (int)pointCible.getY());
 	}
-
-	public JPanel lancerJeu() {
-		JComponent c = this.getGridButton(2,3);
-		
-		
-		JButton boutonStat = new JButton("Stats");
-		boutonStat.setAlignmentX(Component.CENTER_ALIGNMENT);
-		boutonStat.setBackground(Color.white);
-		boutonStat.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				
-			}
-
-		});
-		this.add(boutonStat);
-		
-		return this;
-	}
-
 
 	private void dessinerLaser(Laser laser) {
 		Position origine = laser.getOrigine();
