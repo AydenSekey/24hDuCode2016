@@ -48,6 +48,8 @@ public class WorldGrille implements Serializable {
 	public void setCase(int col, int li, Case laCase) {
 		if(valideCoordonnee(col, li)) {
 			int pos = calculPosition(col, li);
+			laCase.setColonne(col);
+			laCase.setLigne(li);
 			grille[pos] = laCase;
 		} else {
 			throw new InvalideCoordonneeGrilleException(col, li);

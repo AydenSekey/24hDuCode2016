@@ -13,13 +13,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+import javax.swing.border.Border;
 
+import fr.soprasteria.jeu.view.CaseView;
 import fr.soprasteria.jeu.view.CaseViewFactory;
 import fr.soprasteria.world.WorldGrille;
 
@@ -65,5 +68,28 @@ public class PanneauJeu extends JPanel{
 //        int index = r * 8 + c;
         return this.structureCase[col][lig];
     }
+	
+	protected void setGridButton(int col, int lig,CaseView cv) {
+//      int index = r * 8 + c;
+	  JComponent compOld = this.structureCase[col][lig];
+	  
+	  int order = this.getComponentZOrder(compOld);	  
+	  this.remove(compOld);
+	  Object blackline = BorderFactory.createLineBorder(Color.black);
+	  cv.setOpaque(true);
+	  cv.setBackground(Color.WHITE);
+	  cv.setBorder((Border) blackline);
+	  
+      this.structureCase[col][lig] = cv;
+      this.add(structureCase[col][lig],order);
+  }
+
+	protected WorldGrille getGrille(){
+		return grille;
+	}
+	
+	protected JComponent[][] getStructureCase(){
+		return structureCase;
+	}
 	
 }

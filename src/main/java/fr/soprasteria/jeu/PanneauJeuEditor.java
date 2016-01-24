@@ -10,6 +10,8 @@ import java.awt.Point;
 import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 
 import javax.swing.BorderFactory;
@@ -21,9 +23,15 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
 
+import fr.soprasteria.editor.EditeurView;
+import fr.soprasteria.jeu.view.CaseView;
+import fr.soprasteria.jeu.view.CaseViewFactory;
+import fr.soprasteria.jeu.view.CibleView;
 import fr.soprasteria.world.WorldGrille;
+import fr.soprasteria.world.cases.Case;
+import fr.soprasteria.world.cases.Cible;
 
-public class PanneauJeuEditor extends PanneauJeu{
+public class PanneauJeuEditor extends PanneauJeu implements MouseListener{
 
 	/**
 	 * Private constructor for singleton
@@ -35,31 +43,60 @@ public class PanneauJeuEditor extends PanneauJeu{
 		Object blackline = BorderFactory.createLineBorder(Color.black);
 		for(int i=0;i<grille.getNbColonnes();i++){
 			for(int j=0;j<grille.getNbLignes();j++){
-				getGridButton(i, j).setBorder((Border) blackline);
+				JComponent component = getGridButton(i, j);
+				component.setOpaque(true);
+				component.setBackground(Color.WHITE);
+				component.setBorder((Border) blackline);
+				component.addMouseListener(this);
 			}
 		}
 		
 	}
 
-	/*public JPanel lancerEditor() {
+	@Override
+	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
-		JComponent c = this.getGridButton(2,3);
+		CaseView c = (CaseView) e.getSource();
+		System.out.println("Col : " + c.getCase().getColonne() + " | Lig : " + c.getCase().getLigne() + " CLICKED");
 		
+		Case newCase = new Cible();
+				
+		this.getGrille().setCase(c.getCase().getColonne(), c.getCase().getLigne(), newCase);
+		this.setGridButton(c.getCase().getColonne(), c.getCase().getLigne(), CaseViewFactory.getCasePourModele(newCase));
 		
-		JButton boutonStat = new JButton("Stats");
-		boutonStat.setAlignmentX(Component.CENTER_ALIGNMENT);
-		boutonStat.setBackground(Color.white);
-		boutonStat.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				JComponent c = getGridButton(2,3);
-				JComponent d = getGridButton(7,7);
+		this.repaint();
+		this.validate();
+		
+		/*for(int i=0;i<this.getGrille().getNbColonnes();i++){
+			for(int j=0;j<this.getGrille().getNbLignes();j++){
+				System.out.println(i + " " + j + " " +this.getGrille().getCase(i, j).getClass().getName());
 			}
-		});
-		this.add(boutonStat);
+		}*/
+				
+		//EditeurView.getInstance().updatePanelWorld(new PanneauJeuEditor(this.getGrille));
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent arg0) {
+		// TODO Auto-generated method stub
 		
-		return this;
-	}*/
-	
+	}
+
+	@Override
+	public void mouseExited(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}	
 }

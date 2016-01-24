@@ -13,4 +13,7 @@ public class CaseView extends JLabel{
 		this.modele = c;
 	}
 	
+	public Case getCase(){
+		return modele;
+	}	
 }

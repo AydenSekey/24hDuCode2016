@@ -41,7 +41,7 @@ public class EditeurView extends JPanel implements ActionListener{
 	 */
 	private EditeurView(){
 		
-		grille = FabriqueSimpleWorlds.emptyWorld(20, 10, 0, 0);
+		grille = FabriqueSimpleWorlds.emptyWorld(20, 10);
 		
 		panelWorld = new PanneauJeuEditor(grille);
 				
