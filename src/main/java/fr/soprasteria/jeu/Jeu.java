@@ -51,10 +51,17 @@ public class Jeu{
 	public ArrayList<String> listerNiveaux()
 	{
 		File rep = new File("doc/levels");
+		File edit_rep = new File("doc/levels/editor_levels");
 		ArrayList<String> niveaux = new ArrayList<>();
 		for(String niv: rep.list())
 		{
-			niveaux.add(niv.replace(".lvl", ""));
+			if(niv.contains(".lvl"))
+				niveaux.add(niv.replace(".lvl", ""));
+		}
+		for(String niv: edit_rep.list())
+		{
+			if(niv.contains(".lvl"))
+				niveaux.add(niv.replace(".lvl", ""));
 		}
 		
 		return niveaux;
