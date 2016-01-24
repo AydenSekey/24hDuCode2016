@@ -140,10 +140,14 @@ public class PanneauJeuGaming extends PanneauJeu implements CibleListener {
 	public void dessinerLaser(Point pointSrc, Point pointCible, Color couleur)
 	{
 		Graphics g = this.getGraphics();
-		Graphics2D g2d = ( Graphics2D ) g;
-        g2d.setRenderingHint ( RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON );
-        g2d.setPaint (couleur);
-		g2d.drawLine((int)pointSrc.getX(), (int)pointSrc.getY(), (int)pointCible.getX(), (int)pointCible.getY());
+		if(g != null) {
+			Graphics2D g2d = ( Graphics2D ) g;
+	        g2d.setRenderingHint ( RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON );
+	        g2d.setPaint (couleur);
+			g2d.drawLine((int)pointSrc.getX(), (int)pointSrc.getY(), (int)pointCible.getX(), (int)pointCible.getY());
+		} else {
+			System.err.println("WARNING : support de dessin indisponible.");
+		}
 	}
 
 	private void dessinerLaser(Laser laser) {
