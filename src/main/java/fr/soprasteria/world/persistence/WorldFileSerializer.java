@@ -34,6 +34,11 @@ public class WorldFileSerializer implements WorldFileMapper {
 				throw new IOException("Erreur au chargement du fichier " + worldFile.getAbsolutePath() + " : ne contient pas la classe WorldGrille.", e);
 			}
 		}
+		if(world != null){
+			System.out.println(world.toString());
+			System.out.println(world.getPersonnages().get(0).getX());
+			System.out.println(world.getPersonnages().get(0).getY());
+		}
 		return world;
 	}
 
@@ -50,6 +55,12 @@ public class WorldFileSerializer implements WorldFileMapper {
 			try(ObjectOutputStream oout = new ObjectOutputStream(fout)) { // try-resource gère le close avec finally
 				oout.writeObject(world);
 			}
+		}
+		
+		if(world != null){
+			System.out.println(world.toString());
+			System.out.println(world.getPersonnages().get(0).getX());
+			System.out.println(world.getPersonnages().get(0).getY());
 		}
 	}
 
