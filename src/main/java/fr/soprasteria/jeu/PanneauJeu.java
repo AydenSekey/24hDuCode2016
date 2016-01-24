@@ -11,6 +11,8 @@ import java.awt.Point;
 import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 
 import javax.swing.ImageIcon;
@@ -31,7 +33,7 @@ public class PanneauJeu extends JPanel{
 	private JComponent[][] structureCase;
 	
 	//modele
-	private WorldGrille grille;
+	protected WorldGrille grille;
 
 	public PanneauJeu(WorldGrille grille) {
 		super();
@@ -47,8 +49,7 @@ public class PanneauJeu extends JPanel{
 
 	private void constuire()
 	{
-		
-		System.out.println(this.grille);
+//		System.out.println(this.grille);
 		
 		int x = this.grille.getNbColonnes();
 		int y = this.grille.getNbLignes();
@@ -70,20 +71,14 @@ public class PanneauJeu extends JPanel{
 		}
 	}
 	
+	public CaseView ouEstLePersonnage()
+	{
+		return null;
+	}
+	
 	protected JComponent getGridButton(int r, int c) {
 //        int index = r * 8 + c;
         return this.structureCase[r][c];
     }
-	
-	@Override
-	public boolean isFocusTraversable() {
-		// TODO Auto-generated method stub
-		return true;
-	}
-	@Override
-	public boolean isFocusable() {
-		// TODO Auto-generated method stub
-		return true;
-	}
 	
 }

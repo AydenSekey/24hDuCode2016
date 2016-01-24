@@ -1,5 +1,7 @@
 package fr.soprasteria.jeu.view;
 
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -18,6 +20,12 @@ public class CaseView extends JLabel{
 	{
 		this.modele = c;
 		afficherSaVraiNature();
+		this.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				System.out.println(e.getKeyCode());
+			}
+		});
 	}
 	
 	public void afficherPersonnage()
@@ -39,5 +47,10 @@ public class CaseView extends JLabel{
 	public void afficherSaVraiNature() 
 	{
 		
+	}
+	
+	public Case getModele()
+	{
+		return this.modele;
 	}
 }

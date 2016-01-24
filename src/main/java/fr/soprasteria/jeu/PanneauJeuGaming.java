@@ -10,8 +10,13 @@ import java.awt.Point;
 import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 
 import javax.swing.AbstractAction;
@@ -24,26 +29,51 @@ import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
 
+import fr.soprasteria.world.Personnage;
 import fr.soprasteria.world.WorldGrille;
 
 public class PanneauJeuGaming extends PanneauJeu{
 
-	protected static InputMap inputMap;
-	
-	/**
-	 * Private constructor for singleton
-	 * @return 
-	 */
 	public PanneauJeuGaming() {
 		super();
 	}
 	
 	public PanneauJeuGaming(WorldGrille grille) {
 		super(grille);
-		initialiserComportement();
+		this.initialiserComportement();
 	}
 	
 	public void initialiserComportement()
+	{
+		
+		this.setFocusable(true);
+//		System.out.println("isFocusable=" + this.isFocusable());
+//		this.requestFocus();
+////		this.requestFocusInWindow();
+//		System.out.println(this.isFocusOwner());
+		
+		this.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(e.getKeyCode() == KeyEvent.VK_RIGHT)
+				{
+					bougerPersonnageADroite(0);
+				}
+				if(e.getKeyCode() == KeyEvent.VK_LEFT)
+				{
+					bougerPersonnageAGauche(0);
+				}
+			}
+		});
+	}
+	
+	public void bougerPersonnageADroite(int persoNumero)
+	{
+		Personnage perso = this.grille.getPersonnages().get(persoNumero);
+		
+	}
+	
+	public void bougerPersonnageAGauche(int persoNumero)
 	{
 		
 	}
