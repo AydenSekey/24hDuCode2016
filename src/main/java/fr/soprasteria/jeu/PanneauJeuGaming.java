@@ -115,21 +115,25 @@ public class PanneauJeuGaming extends PanneauJeu implements CibleListener {
 	{
 		Personnage perso = this.grille.getPersonnages().get(persoNumero);
 		CaseView caseView = (CaseView) this.getGridButton(perso.getX(), perso.getY());
-		caseView.retirerPersonnage();
-		CaseView caseViewVoisine = (CaseView) this.getGridButton(perso.getX()+1, perso.getY());
-		caseViewVoisine.afficherPersonnage(perso);
-		perso.setX(perso.getX()+1);
+		if(perso.getX() < this.grille.getNbColonnes() - 1) {
+			caseView.retirerPersonnage();
+			CaseView caseViewVoisine = (CaseView) this.getGridButton(perso.getX()+1, perso.getY());
+			caseViewVoisine.afficherPersonnage(perso);
+			perso.setX(perso.getX()+1);
+		}
 	}
 	
 	public void bougerPersonnageAGauche(int persoNumero)
 	{
 		Personnage perso = this.grille.getPersonnages().get(persoNumero);
 		CaseView caseView = (CaseView) this.getGridButton(perso.getX(), perso.getY());
-		caseView.retirerPersonnage();
-		CaseView caseViewVoisine = (CaseView) this.getGridButton(perso.getX()-1, perso.getY());
-		caseViewVoisine.afficherPersonnage(perso);
-		perso.setX(perso.getX()-1);
-		perso.setCaseOccupee(caseViewVoisine.getModele());
+		if(perso.getX() > 0) {
+			caseView.retirerPersonnage();
+			CaseView caseViewVoisine = (CaseView) this.getGridButton(perso.getX()-1, perso.getY());
+			caseViewVoisine.afficherPersonnage(perso);
+			perso.setX(perso.getX()-1);
+			perso.setCaseOccupee(caseViewVoisine.getModele());
+		}
 	}
 	
 	public void finirNiveau()
