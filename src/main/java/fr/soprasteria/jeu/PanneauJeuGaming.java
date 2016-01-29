@@ -17,6 +17,7 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JComponent;
+import javax.swing.JOptionPane;
 
 import fr.soprasteria.jeu.moteur.tirlaser.TirLaserControler;
 import fr.soprasteria.jeu.view.CaseView;
@@ -31,6 +32,7 @@ import fr.soprasteria.world.laser.LaserDirection;
 
 public class PanneauJeuGaming extends PanneauJeu implements CibleListener {
 	private TirLaserControler laserControler;
+	private boolean success;
 	
 	public PanneauJeuGaming() {
 		super();
@@ -56,7 +58,7 @@ public class PanneauJeuGaming extends PanneauJeu implements CibleListener {
 
 	public void initialiserComportement()
 	{
-		
+		success = false;
 		this.setFocusable(true);
 		
 		this.addKeyListener(new KeyAdapter() {
@@ -86,6 +88,9 @@ public class PanneauJeuGaming extends PanneauJeu implements CibleListener {
 							dessinerLaser(las);
 						}
 						jouerSon("shoot.wav");
+						if(success) {
+							finirNiveau();
+						}
 					}
 				}
 				if(e.getKeyCode() == KeyEvent.VK_NUMPAD4) {
@@ -152,6 +157,7 @@ public class PanneauJeuGaming extends PanneauJeu implements CibleListener {
 	
 	public void finirNiveau()
 	{
+		JOptionPane.showMessageDialog(this, "Gagné !");
 		FenetreJeu.getInstance().changerPanneau(PanneauSelectionNiveau.getInstance());
 	}
 	
@@ -277,6 +283,6 @@ public class PanneauJeuGaming extends PanneauJeu implements CibleListener {
 	@Override
 	public void cibleTouchee() {
 		System.out.println("SUCCESS !");
-		finirNiveau();
+		success = true;
 	}
 }
