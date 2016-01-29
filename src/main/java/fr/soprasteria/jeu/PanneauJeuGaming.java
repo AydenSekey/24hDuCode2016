@@ -64,21 +64,15 @@ public class PanneauJeuGaming extends PanneauJeu implements CibleListener {
 		this.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
-				if(e.getKeyCode() == KeyEvent.VK_RIGHT)
-				{
+				if(e.getKeyCode() == KeyEvent.VK_RIGHT) {
 					bougerPersonnageADroite(0);
 					repaint();
-				}
-				if(e.getKeyCode() == KeyEvent.VK_LEFT)
-				{
+				} else if(e.getKeyCode() == KeyEvent.VK_LEFT) {
 					bougerPersonnageAGauche(0);
 					repaint();
-				}
-				if(e.getKeyCode() == KeyEvent.VK_BACK_SPACE)
-				{
+				} else if(e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
 					finirNiveau();
-				}
-				if(e.getKeyCode() == KeyEvent.VK_SPACE) {
+				} else if(e.getKeyCode() == KeyEvent.VK_SPACE) {
 					if(!grille.getPersonnages().isEmpty()) {
 						Personnage perso = grille.getPersonnages().get(0);
 						Laser laser = perso.tirer();
@@ -92,32 +86,27 @@ public class PanneauJeuGaming extends PanneauJeu implements CibleListener {
 							finirNiveau();
 						}
 					}
-				}
-				if(e.getKeyCode() == KeyEvent.VK_NUMPAD4) {
+				} else if(e.getKeyCode() == KeyEvent.VK_Q) {
 					Personnage perso = grille.getPersonnages().get(0);
 					perso.setDirectionArme(LaserDirection.OUEST);
 					CaseView caseView = (CaseView) getGridButton(perso.getX(), perso.getY());
 					caseView.changerPersonnage(LaserDirection.OUEST);
-				}
-				if(e.getKeyCode() == KeyEvent.VK_NUMPAD7) {
+				} else if(e.getKeyCode() == KeyEvent.VK_A) {
 					Personnage perso = grille.getPersonnages().get(0);
 					perso.setDirectionArme(LaserDirection.NORD_OUEST);
 					CaseView caseView = (CaseView) getGridButton(perso.getX(), perso.getY());
 					caseView.changerPersonnage(LaserDirection.NORD_OUEST);	
-				}
-				if(e.getKeyCode() == KeyEvent.VK_NUMPAD8) {
+				} else if(e.getKeyCode() == KeyEvent.VK_Z) {
 					Personnage perso = grille.getPersonnages().get(0);
 					perso.setDirectionArme(LaserDirection.NORD);
 					CaseView caseView = (CaseView) getGridButton(perso.getX(), perso.getY());
 					caseView.changerPersonnage(LaserDirection.NORD);
-				}
-				if(e.getKeyCode() == KeyEvent.VK_NUMPAD9) {
+				} else if(e.getKeyCode() == KeyEvent.VK_E) {
 					Personnage perso = grille.getPersonnages().get(0);
 					perso.setDirectionArme(LaserDirection.NORD_EST);
 					CaseView caseView = (CaseView) getGridButton(perso.getX(), perso.getY());
 					caseView.changerPersonnage(LaserDirection.NORD_EST);
-				}
-				if(e.getKeyCode() == KeyEvent.VK_NUMPAD6) {
+				} else if(e.getKeyCode() == KeyEvent.VK_D) {
 					System.out.println("s");
 					Personnage perso = grille.getPersonnages().get(0);
 					perso.setDirectionArme(LaserDirection.EST);
@@ -224,7 +213,7 @@ public class PanneauJeuGaming extends PanneauJeu implements CibleListener {
 		
 		switch (direction) {
 			case OUEST:
-				bordPoint = new Point(this.getWidth(), (int) origine.getY());
+				bordPoint = new Point(0, (int) origine.getY());
 				break;
 			case NORD_OUEST:
 				xDistanceWithMin = (int) origine.getX();
